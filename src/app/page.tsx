@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const projects = [
   {
     title: "Velvet Vogue",
     type: "Full-stack web app",
     image: "/projects/velvet-vogue/cover.png",
+    caseStudy: "/work/velvet-vogue",
     description:
       "An e-commerce website with product browsing, accounts, cart, checkout, orders, and an admin dashboard.",
     tools: "PHP, MySQL, JavaScript, Bootstrap",
@@ -23,6 +25,7 @@ const projects = [
     title: "KickBlast Judo",
     type: "C# desktop app",
     image: "/projects/kickblast-judo/cover.png",
+    caseStudy: "/work/kickblast-judo",
     description:
       "A management system for athletes, coaches, training plans, competitions, fees, and payments.",
     tools: "C#, Windows Forms, SQL Server",
@@ -37,6 +40,7 @@ const projects = [
     title: "ETCP",
     type: "React prototype",
     image: "/projects/etcp/cover.png",
+    caseStudy: "/work/etcp",
     description:
       "A mobile-style travel app prototype with destinations, bookings, profiles, search, reviews, and mock payments.",
     tools: "React, JavaScript, CSS",
@@ -51,6 +55,7 @@ const projects = [
     title: "Enomy Finance",
     type: "UI/UX design",
     image: "/projects/enomy-finance/cover.png",
+    caseStudy: "/work/enomy-finance",
     description:
       "A finance website design for currency conversion, investment quotes, account history, and user dashboards.",
     tools: "Figma",
@@ -192,6 +197,10 @@ export default function Home() {
                   <p className="project-tools">{project.tools}</p>
 
                   <div className="project-links">
+                    {project.caseStudy && (
+                      <Link href={project.caseStudy}>Case study</Link>
+                    )}
+
                     {project.links.map((link) => (
                       <a
                         href={link.href}
