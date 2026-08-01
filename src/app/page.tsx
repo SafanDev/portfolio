@@ -171,7 +171,11 @@ export default function Home() {
         <div className="project-grid">
           {projects.map((project, index) => (
             <article className="project-card" key={project.title}>
-              <div className="project-image">
+              <Link
+                href={project.caseStudy}
+                className="project-image"
+                aria-label={`View ${project.title} case study`}
+              >
                 <Image
                   src={project.image}
                   alt={`${project.title} project preview`}
@@ -180,13 +184,15 @@ export default function Home() {
                   sizes="(max-width: 760px) calc(100vw - 24px), (max-width: 1200px) 50vw, 584px"
                   priority={index === 0}
                 />
-              </div>
+              </Link>
 
               <div className="project-content">
                 <div>
                   <p className="project-type">{project.type}</p>
 
-                  <h3>{project.title}</h3>
+                  <h3>
+                    <Link href={project.caseStudy}>{project.title}</Link>
+                  </h3>
 
                   <p className="project-description">
                     {project.description}
@@ -197,9 +203,7 @@ export default function Home() {
                   <p className="project-tools">{project.tools}</p>
 
                   <div className="project-links">
-                    {project.caseStudy && (
-                      <Link href={project.caseStudy}>Case study</Link>
-                    )}
+                    <Link href={project.caseStudy}>Case study</Link>
 
                     {project.links.map((link) => (
                       <a
