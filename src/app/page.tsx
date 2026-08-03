@@ -1,301 +1,387 @@
 import Image from "next/image";
-import Link from "next/link";
 
-const projects = [
-  {
-    title: "Velvet Vogue",
-    type: "Full-stack web app",
-    image: "/projects/velvet-vogue/cover.png",
-    caseStudy: "/work/velvet-vogue",
-    description:
-      "An e-commerce website with product browsing, accounts, cart, checkout, orders, and an admin dashboard.",
-    tools: "PHP, MySQL, JavaScript, Bootstrap",
-    links: [
-      {
-        label: "Live site",
-        href: "https://vetvetvogue.gamer.gd/",
-      },
-      {
-        label: "GitHub",
-        href: "https://github.com/SafanDev/velvetVogue",
-      },
-    ],
-  },
-  {
-    title: "KickBlast Judo",
-    type: "C# desktop app",
-    image: "/projects/kickblast-judo/cover.png",
-    caseStudy: "/work/kickblast-judo",
-    description:
-      "A management system for athletes, coaches, training plans, competitions, fees, and payments.",
-    tools: "C#, Windows Forms, SQL Server",
-    links: [
-      {
-        label: "GitHub",
-        href: "https://github.com/SafanDev/kick-blast-judo-system",
-      },
-    ],
-  },
-  {
-    title: "ETCP",
-    type: "React prototype",
-    image: "/projects/etcp/cover.png",
-    caseStudy: "/work/etcp",
-    description:
-      "A mobile-style travel app prototype with destinations, bookings, profiles, search, reviews, and mock payments.",
-    tools: "React, JavaScript, CSS",
-    links: [
-      {
-        label: "GitHub",
-        href: "https://github.com/SafanDev/eco-traveler-cloud-platform",
-      },
-    ],
-  },
-  {
-    title: "Enomy Finance",
-    type: "UI/UX design",
-    image: "/projects/enomy-finance/cover.png",
-    caseStudy: "/work/enomy-finance",
-    description:
-      "A finance website design for currency conversion, investment quotes, account history, and user dashboards.",
-    tools: "Figma",
-    links: [
-      {
-        label: "View design",
-        href: "https://www.figma.com/design/IUAmQxfeTqMFcCiA4XFfwd/Enomy-Finance?t=tn6axTtPhgn2IXt5-0",
-      },
-    ],
-  },
+import SiteHeader from "@/components/site-header";
+import ProjectCard from "@/components/project-card";
+import SkillsGrid from "@/components/skills-grid";
+import CopyEmailButton from "@/components/copy-email-button";
+import EmailLink from "@/components/email-link";
+
+import {
+  ArrowUpIcon,
+  DownloadIcon,
+  ExternalLinkIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+} from "@/components/icons";
+
+import { projects } from "@/data/projects";
+import { siteConfig } from "@/data/site";
+
+const projectOrder = [
+  "velvet-vogue",
+  "etcp",
+  "kickblast-judo",
+  "enomy-finance",
 ];
 
-export default function Home() {
+const homepageProjects = projectOrder
+  .map((slug) =>
+    projects.find(
+      (project) => project.slug === slug,
+    ),
+  )
+  .filter(
+    (
+      project,
+    ): project is (typeof projects)[number] =>
+      Boolean(project),
+  );
+
+export default function HomePage() {
   return (
-    <main>
-      <header className="site-header">
-        <a href="/" className="site-name" aria-label="Safan home">
-          Safan
-        </a>
+    <>
+      <SiteHeader />
 
-        <nav aria-label="Main navigation">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
-
-      <section className="hero">
-        <div className="hero-copy">
-          <p className="eyebrow">Full-Stack Developer</p>
-
-          <h1>I design and build web apps.</h1>
-
-          <p className="hero-description">
-            From the interface to the backend, I turn ideas into clean,
-            working products.
-          </p>
-
-          <div className="hero-actions">
-            <a href="#work" className="primary-button">
-              View my work
-            </a>
-
-            <a
-              href="mailto:safan.dev@gmail.com"
-              className="secondary-button"
-            >
-              Email me
-            </a>
-          </div>
-
-          <p className="availability">
-            Sri Lanka · Open to junior roles and internships
-          </p>
-        </div>
-
-        <div className="hero-proof">
-          <div className="proof-heading">
-            <p>What I work with</p>
-
-            <span>
-              <i aria-hidden="true" />
-              Available
-            </span>
-          </div>
-
-          <div className="proof-list">
-            <div className="proof-item">
-              <span>01</span>
-
-              <div>
-                <p>Frontend</p>
-                <strong>React, JavaScript, Tailwind</strong>
-              </div>
-            </div>
-
-            <div className="proof-item">
-              <span>02</span>
-
-              <div>
-                <p>Backend</p>
-                <strong>PHP, Node.js, MySQL</strong>
-              </div>
-            </div>
-
-            <div className="proof-item">
-              <span>03</span>
-
-              <div>
-                <p>Design</p>
-                <strong>Figma, UI and UX</strong>
-              </div>
-            </div>
-          </div>
-
-          <a
-            href="https://github.com/SafanDev"
-            target="_blank"
-            rel="noreferrer"
+      <main id="main-content">
+        <section
+          id="home"
+          className="hero section-shell"
+          aria-labelledby="hero-title"
+        >
+          <div
+            className="hero__inner"
+            data-reveal
           >
-            View GitHub
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </section>
+            <div className="hero__content">
+              <h1 id="hero-title">
+                Hi, I&apos;m
+                <br />
 
-      <section id="work">
-        <div className="section-heading">
-          <p>Selected work</p>
-          <h2>Projects I have built and designed.</h2>
-        </div>
+                <span className="hero__name">
+                  Mohamed Safan
+                </span>
+              </h1>
 
-        <div className="project-grid">
-          {projects.map((project, index) => (
-            <article className="project-card" key={project.title}>
-              <Link
-                href={project.caseStudy}
-                className="project-image"
-                aria-label={`View ${project.title} case study`}
+              <p className="hero__lead">
+                Full-Stack Developer based in Sri
+                Lanka.
+              </p>
+
+              <div className="hero__actions">
+                <a
+                  href="#contact"
+                  className="button button--primary hero__cta"
+                >
+                  Get in Touch
+                </a>
+              </div>
+
+              <a
+                href="#work"
+                className="hero__scroll"
               >
-                <Image
-                  src={project.image}
-                  alt={`${project.title} project preview`}
-                  width={1536}
-                  height={1024}
-                  sizes="(max-width: 760px) calc(100vw - 24px), (max-width: 1200px) 50vw, 584px"
-                  priority={index === 0}
-                />
-              </Link>
+                <span
+                  className="mouse"
+                  aria-hidden="true"
+                >
+                  <span className="wheel" />
+                </span>
 
-              <div className="project-content">
-                <div>
-                  <p className="project-type">{project.type}</p>
+                Scroll to explore
+              </a>
+            </div>
 
-                  <h3>
-                    <Link href={project.caseStudy}>{project.title}</Link>
-                  </h3>
+            <div className="hero__visual">
+              <div
+                className="hero__glow"
+                aria-hidden="true"
+              />
 
-                  <p className="project-description">
-                    {project.description}
-                  </p>
+              <div className="hero__rings">
+                <div className="orbit-node orbit-node--1">
+                  <a
+                    href={siteConfig.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="orbit-icon"
+                    aria-label="Visit Safan's GitHub profile"
+                  >
+                    <GitHubIcon />
+                  </a>
                 </div>
 
-                <div className="project-footer">
-                  <p className="project-tools">{project.tools}</p>
+                <div className="orbit-node orbit-node--2">
+                  <a
+                    href={siteConfig.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="orbit-icon"
+                    aria-label="Visit Safan's LinkedIn profile"
+                  >
+                    <LinkedInIcon />
+                  </a>
+                </div>
 
-                  <div className="project-links">
-                    <Link href={project.caseStudy}>Case study</Link>
-
-                    {project.links.map((link) => (
-                      <a
-                        href={link.href}
-                        key={link.label}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`${link.label} for ${project.title}`}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
+                <div className="orbit-node orbit-node--3">
+                  <EmailLink
+                    className="orbit-icon"
+                    aria-label={`Email Safan at ${siteConfig.email}`}
+                  >
+                    <MailIcon />
+                  </EmailLink>
                 </div>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
 
-      <section id="about">
-        <div className="section-heading">
-          <p>About</p>
-          <h2>I enjoy turning ideas into working products.</h2>
-        </div>
+              <div className="hero__portrait">
+                <Image
+                  src="/media/profile/safan.webp"
+                  alt="Portrait of Mohamed Safan"
+                  fill
+                  preload
+                  quality={90}
+                  sizes="(max-width: 520px) 340px, (max-width: 960px) 390px, 560px"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="about-content">
-          <p>
-            I&apos;m Safan, a full-stack developer from Sri Lanka. I recently
-            completed a BTEC HND in Computing (Software Engineering).
-          </p>
+        <section
+          id="work"
+          className="section-shell content-section"
+          aria-labelledby="work-title"
+        >
+          <div
+            className="section-heading"
+            data-reveal
+          >
+            <p>Projects</p>
 
-          <p>
-            I enjoy both frontend and backend development, with a stronger
-            interest in building clean and useful user interfaces.
-          </p>
+            <h2 id="work-title">
+              What I&apos;ve Built
+            </h2>
+          </div>
 
-          <div className="skills">
-            <div>
-              <h3>Frontend</h3>
+          <div className="project-grid">
+            {homepageProjects.map(
+              (project, index) => (
+                <ProjectCard
+                  key={project.slug}
+                  project={project}
+                  featured={index < 2}
+                />
+              ),
+            )}
+          </div>
+        </section>
+
+        <section
+          id="skills"
+          className="section-shell content-section"
+          aria-labelledby="skills-title"
+        >
+          <div
+            className="section-heading"
+            data-reveal
+          >
+            <p>Skills</p>
+
+            <h2 id="skills-title">
+              Technical Skills
+            </h2>
+          </div>
+
+          <SkillsGrid />
+        </section>
+
+        <section
+          id="about"
+          className="section-shell content-section about-section"
+          aria-labelledby="about-title"
+        >
+          <div
+            className="section-heading"
+            data-reveal
+          >
+            <p>About</p>
+
+            <h2 id="about-title">
+              A developer who cares about both
+              sides of the product.
+            </h2>
+          </div>
+
+          <div
+            className="about-grid"
+            data-reveal
+          >
+            <div className="about-copy">
               <p>
-                HTML, CSS, JavaScript, React, Bootstrap, Tailwind CSS
+                I enjoy taking an idea through
+                interface design, database
+                structure, development, testing,
+                and refinement. My recent BTEC HND
+                in Software Engineering gave me a
+                solid grounding in the full stack,
+                from PHP and MySQL backends to C#
+                desktop applications and React
+                frontends.
               </p>
             </div>
 
-            <div>
-              <h3>Backend</h3>
-              <p>PHP, C#, Node.js, MySQL</p>
-            </div>
+            <div className="about-facts">
+              <article>
+                <span>Education</span>
 
-            <div>
-              <h3>Tools</h3>
+                <strong>
+                  BTEC HND in Computing (Software
+                  Engineering)
+                </strong>
+
+                <p>
+                  ESOFT Metro Campus · 2025–2026
+                </p>
+              </article>
+
+              <article>
+                <span>Looking for</span>
+
+                <strong>
+                  Junior full-stack roles
+                </strong>
+
+                <p>
+                  Software development internships
+                </p>
+              </article>
+
+              <article>
+                <span>Work preference</span>
+
+                <strong>Sri Lanka</strong>
+
+                <p>Remote worldwide</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="contact"
+          className="contact-section"
+          aria-labelledby="contact-title"
+        >
+          <div
+            className="contact-section__inner section-shell"
+            data-reveal
+          >
+            <div className="contact-copy">
+              <p className="contact-label">
+                Contact
+              </p>
+
+              <h2 id="contact-title">
+                Let&apos;s Connect
+              </h2>
+
               <p>
-                Git, GitHub, Figma, VS Code, Visual Studio, XAMPP, Python
+                I&apos;m open to junior full-stack
+                roles, software development
+                internships, and remote
+                opportunities. Feel free to reach
+                out about a role, project, or
+                conversation.
               </p>
             </div>
+
+            <div className="contact-actions">
+              <EmailLink
+                className="contact-email icon-link"
+                aria-label={`Email Safan at ${siteConfig.email}`}
+              >
+                <span>{siteConfig.email}</span>
+                <ExternalLinkIcon />
+              </EmailLink>
+
+              <CopyEmailButton />
+
+              <div className="contact-links">
+                <a
+                  href={siteConfig.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-link"
+                  aria-label="Open Safan's GitHub profile in a new tab"
+                >
+                  GitHub
+                  <ExternalLinkIcon />
+                </a>
+
+                <a
+                  href={siteConfig.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-link"
+                  aria-label="Open Safan's LinkedIn profile in a new tab"
+                >
+                  LinkedIn
+                  <ExternalLinkIcon />
+                </a>
+
+                <a
+                  href={siteConfig.cv}
+                  download
+                  className="icon-link"
+                  aria-label="Download Mohamed Safan's resume"
+                >
+                  Resume
+                  <DownloadIcon />
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="contact">
-        <div className="contact-content">
-          <div>
-            <p>Contact</p>
-            <h2>Have a role or project in mind?</h2>
-          </div>
+        <footer className="site-footer section-shell">
+          <p>
+            © {new Date().getFullYear()} Safan ·
+            Batticaloa, Sri Lanka
+          </p>
 
           <div>
-            <p>
-              I&apos;m open to junior full-stack roles, internships, and
-              remote work.
-            </p>
-
-            <a href="mailto:safan.dev@gmail.com">
-              safan.dev@gmail.com
-            </a>
-
             <a
-              href="https://github.com/SafanDev"
+              href={siteConfig.github}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               GitHub
             </a>
-          </div>
-        </div>
 
-        <footer>
-          <p>Safan</p>
-          <p>Sri Lanka</p>
+            <a
+              href={siteConfig.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+
+            <EmailLink
+              aria-label={`Email Safan at ${siteConfig.email}`}
+            >
+              Email
+            </EmailLink>
+
+            <a
+              href="#home"
+              className="icon-link"
+            >
+              Back to top
+              <ArrowUpIcon />
+            </a>
+          </div>
         </footer>
-      </section>
-    </main>
+      </main>
+    </>
   );
 }
