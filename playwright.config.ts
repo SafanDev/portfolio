@@ -23,7 +23,7 @@ export default defineConfig({
         ["html", { open: "never", outputFolder: "playwright-report" }],
       ],
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://localhost:3000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -43,8 +43,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run dev",
-    url: "http://127.0.0.1:3000",
+    command: "npm run start",
+    url: "http://localhost:3000",
     reuseExistingServer: !isContinuousIntegration,
     timeout: 120_000,
     stdout: "pipe",

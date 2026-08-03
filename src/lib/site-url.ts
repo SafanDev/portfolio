@@ -1,22 +1,6 @@
+import { normalizeSiteUrl } from "./site-url-core.mjs";
+
 const LOCAL_SITE_URL = "http://localhost:3000";
-
-function addProtocol(value: string) {
-  return /^https?:\/\//i.test(value) ? value : `https://${value}`;
-}
-
-function normalizeSiteUrl(value: string) {
-  const url = new URL(addProtocol(value.trim()));
-
-  if (url.protocol !== "http:" && url.protocol !== "https:") {
-    throw new Error("The portfolio URL must use http or https.");
-  }
-
-  url.hash = "";
-  url.search = "";
-  url.pathname = "";
-
-  return url.toString().replace(/\/$/, "");
-}
 
 function getPlatformSiteUrl() {
   return (

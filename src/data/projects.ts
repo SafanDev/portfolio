@@ -8,6 +8,9 @@ export type ProjectMedia = {
   alt: string;
   caption: string;
   orientation?: "wide" | "portrait" | "square";
+  presentation?: "standard" | "document" | "spotlight" | "comparison-board";
+  title?: string;
+  points?: string[];
 };
 
 export type Decision = {
@@ -107,15 +110,15 @@ export const projects: Project[] = [
       { label: "GitHub", href: "https://github.com/SafanDev/velvetVogue" },
     ],
     role: "Solo full-stack developer and designer",
-    team: "Individual academic project",
+    team: "Independent project",
     hook:
       "The storefront was only half the challenge. The real work was keeping every product, variant, image, order and stock update trustworthy behind it.",
     overview:
-      "Velvet Vogue is a full-stack fashion e-commerce platform built from interface to database. I designed the shopping experience, implemented the PHP and MySQL backend, created the admin workflows and deployed the finished system as a working demonstration.",
+      "Velvet Vogue is a deployed PHP and MySQL fashion store connecting product discovery, variant-aware shopping, orders, inventory and administration in one system.",
     proof: [
-      { value: "12", label: "core relational tables" },
-      { value: "100", label: "validated variants per product submission" },
-      { value: "20", label: "validated images per product submission" },
+      { value: "12", label: "relational database tables" },
+      { value: "100", label: "validated size-colour variants per product" },
+      { value: "20", label: "validated product images per submission" },
       { value: "Live", label: "deployed end-to-end workflow" },
     ],
     storyArc: [
@@ -141,8 +144,8 @@ export const projects: Project[] = [
     problem: {
       headline: "One retail workflow, split across too many moving parts.",
       paragraphs: [
-        "The assignment scenario described a fashion retailer that needed an online presence and an independent management system. Customers needed a clear way to discover products and place orders, while administrators needed dependable control over catalogue data, variants, stock and order progress.",
-        "The difficult part was not drawing the pages. A single product could contain several sizes, colours, stock values and images. A failed image upload or invalid variant could leave incomplete database records unless the full operation was designed carefully.",
+        "Velvet Vogue was built for a fashion retailer needing both a customer storefront and an independent management system. Customers needed clear discovery and ordering, while administrators needed reliable control over products, variants, stock and order progress.",
+        "The difficult part was keeping related data trustworthy. One product could contain several sizes, colours, stock values and images, so a failed upload or invalid variant needed to leave no incomplete records behind.",
       ],
       goal:
         "Build one responsive platform that lets customers shop confidently and lets an administrator manage the complete retail flow without manually repairing inconsistent data.",
@@ -151,28 +154,32 @@ export const projects: Project[] = [
       headline: "Start with what shoppers and administrators actually need.",
       methods: ["Questionnaire", "Requirements analysis", "Wireframing", "Competitor review"],
       paragraphs: [
-        "I used a questionnaire to understand expectations around navigation, filtering, product information and checkout. The feedback made discovery speed a priority: people wanted to narrow a large catalogue without repeatedly opening separate pages.",
+        "Questionnaire feedback made discovery speed a priority: shoppers wanted to combine size, colour and price criteria without repeatedly opening separate pages.",
         "I translated the main customer and admin tasks into a relational structure before building the interface. The wireframe focused on page hierarchy and shopping flow first, leaving the visual style for a later pass.",
       ],
       media: [
         {
           src: media("velvet-vogue", "wireframe"),
           alt: "Early Velvet Vogue homepage wireframe",
-          caption: "The first homepage wireframe established hierarchy before visual styling.",
+          title: "Early structure",
+          caption: "The wireframe established the page hierarchy, shopping entry points and content order before visual styling.",
           orientation: "portrait",
+          presentation: "document",
         },
         {
-          src: media("velvet-vogue", "homepage"),
-          alt: "Final Velvet Vogue homepage",
-          caption: "The final homepage combines brand atmosphere with direct routes into the catalogue.",
-          orientation: "wide",
+          src: media("velvet-vogue", "homepage-full"),
+          alt: "Complete final Velvet Vogue homepage",
+          title: "Final homepage",
+          caption: "The completed page turns the same structure into a branded storefront with catalogue, editorial and trust-building sections.",
+          orientation: "portrait",
+          presentation: "document",
         },
       ],
     },
     process: {
       headline: "Design the experience, then protect the data behind it.",
       intro:
-        "Three decisions shaped the project: making catalogue discovery faster, modelling variants as real inventory records and making the product-creation operation recover safely when something goes wrong.",
+        "The strongest decisions improved catalogue discovery, treated variants as real inventory and made product creation recover safely from failure.",
       decisions: [
         {
           title: "Combined filters instead of isolated searches",
@@ -203,7 +210,7 @@ export const projects: Project[] = [
         },
       ],
       feedback:
-        "Usability and functional testing led to two visible improvements: performance work on heavy pages and a combined filter experience covering criteria such as size, colour and price at the same time.",
+        "Testing led to performance work on heavy pages and a combined filter experience for size, colour and price.",
       media: [
         {
           src: media("velvet-vogue", "filters"),
@@ -214,15 +221,22 @@ export const projects: Project[] = [
         {
           src: media("velvet-vogue", "add-product"),
           alt: "Velvet Vogue administrator add product interface",
-          caption: "The admin workflow manages core details, media and a generated size-colour variant matrix.",
+          title: "One controlled product-creation workflow",
+          caption: "The interface brings product details, media, visibility and the generated size-colour inventory matrix into one deliberate operation.",
+          points: [
+            "Server-side validation protects every submitted field",
+            "Variants receive individual stock and SKU records",
+            "Transactions and cleanup prevent partial products",
+          ],
           orientation: "portrait",
+          presentation: "spotlight",
         },
       ],
     },
     solution: {
       headline: "A complete retail loop, not a collection of disconnected screens.",
       intro:
-        "The final system joins customer and administrator actions around the same product, inventory and order data. Every major screen exists to move the retail workflow forward.",
+        "Customer and administrator actions now share the same product, inventory and order data from listing through delivery.",
       features: [
         {
           title: "Fast product discovery",
@@ -291,9 +305,9 @@ export const projects: Project[] = [
       videoReady: true,
     },
     validation: {
-      headline: "The outcome is working software, not invented business numbers.",
+      headline: "A deployed retail platform connecting customer and administrator workflows.",
       intro:
-        "Velvet Vogue was completed, functionally tested and deployed as a live demonstration. The strongest result is the end-to-end workflow and the reliability measures built around its most complex admin operation.",
+        "The application was completed, functionally tested and deployed online. Its strongest result is the end-to-end retail workflow and the reliability built around product creation.",
       evidence: [
         "Live deployed customer-facing website",
         "Twelve-table relational data model",
@@ -302,7 +316,7 @@ export const projects: Project[] = [
         "Filtering and performance improved after feedback",
       ],
       boundaries: [
-        "John Finlo and the retailer were an academic client scenario, not a paying client.",
+        "No commercial sales, adoption or client-performance figures are claimed.",
         "No sales, conversion, concurrent-user or revenue figures are claimed.",
         "The validated limits describe implemented submission rules, not real production volume.",
       ],
@@ -315,7 +329,7 @@ export const projects: Project[] = [
     reflection: {
       headline: "The biggest lesson: backend reliability is part of the user experience.",
       wentWell:
-        "The strongest part of the project is the connection between a custom visual experience and a structured operational backend. Product discovery, inventory and administration do not feel like separate assignments.",
+        "The strongest part of the project is the connection between a custom visual experience and a structured operational backend. Product discovery, inventory and administration operate as one connected workflow.",
       differently:
         "I would begin performance profiling earlier and design automated integration tests around stock changes, checkout and product uploads before the final visual pass.",
       learned: [
@@ -336,7 +350,7 @@ export const projects: Project[] = [
     shortTitle: "KickBlast",
     type: "Desktop Management System",
     period: "September 2025 - October 2025",
-    status: "Completed and on GitHub",
+    status: "Completed and published on GitHub",
     accent: "#2867d8",
     cover: media("kickblast-judo", "cover"),
     cardSummary:
@@ -344,11 +358,11 @@ export const projects: Project[] = [
     tools: ["C#", ".NET Framework", "Windows Forms", "SQL Server", "ADO.NET"],
     links: [{ label: "GitHub", href: "https://github.com/SafanDev/kick-blast-judo" }],
     role: "Solo desktop application developer",
-    team: "Individual academic project",
+    team: "Independent project",
     hook:
       "The system already stored and calculated the right information. Feedback exposed the missing last mile: the administrator still needed something useful to print and hand over.",
     overview:
-      "KickBlast Judo is a Windows Forms management application for a judo club. I built the interface, SQL Server data layer, calculations, dashboard and reporting flow to bring eight everyday club operations into one login-protected system.",
+      "KickBlast Judo is a C# and SQL Server desktop application connecting eight club-management workflows, automated calculations, dashboard reporting and printable billing.",
     proof: [
       { value: "8", label: "core club workflows centralised" },
       { value: "1", label: "connected SQL Server system" },
@@ -378,7 +392,7 @@ export const projects: Project[] = [
     problem: {
       headline: "Club administration was a chain of related tasks, not isolated forms.",
       paragraphs: [
-        "A judo club needs more than athlete records. Coaches, training plans, weight categories, competitions, private coaching, monthly bills and payments affect one another.",
+        "Athletes, coaches, plans, competitions, private coaching, monthly bills and payments form one connected club workflow rather than isolated records.",
         "The application needed to keep those records consistent, calculate charges correctly and present useful information to the administrator without turning every screen into a dense database table.",
       ],
       goal:
@@ -409,7 +423,7 @@ export const projects: Project[] = [
     process: {
       headline: "Turn related records into one predictable desktop workflow.",
       intro:
-        "The project balanced database operations, calculation rules and desktop usability. The most useful improvements came from treating feedback as a workflow problem rather than a request for another screen.",
+        "The key design work connected database operations, calculation rules and desktop navigation into one predictable system.",
       decisions: [
         {
           title: "One navigation model for eight workflows",
@@ -440,19 +454,20 @@ export const projects: Project[] = [
         },
       ],
       feedback:
-        "Usability and functional testing confirmed the core flows but revealed that billing needed a practical print output. That change became the clearest example of feedback improving the product rather than only polishing it.",
+        "Testing confirmed the core flows but revealed a missing final step: billing needed a practical printable output.",
       media: [
-        {
-          src: media("kickblast-judo", "dashboard"),
-          alt: "KickBlast Judo dashboard with totals and charts",
-          caption: "The dashboard summarises athletes, coaches, events, revenue and trends without replacing the detailed records.",
-          orientation: "wide",
-        },
         {
           src: media("kickblast-judo", "bill"),
           alt: "KickBlast Judo generated bill",
-          caption: "The printed bill/report was added after feedback exposed a missing final step.",
+          title: "Printable billing completes the task",
+          caption: "The report turns stored calculations into an output the administrator can review, print and hand over.",
+          points: [
+            "Uses the same stored fee and payment records",
+            "Presents a clear total and payment state",
+            "Closes the workflow beyond the on-screen calculation",
+          ],
           orientation: "portrait",
+          presentation: "spotlight",
         },
       ],
     },
@@ -488,16 +503,11 @@ export const projects: Project[] = [
           caption: "The dashboard gives a quick operational picture before the administrator opens a detailed workflow.",
           orientation: "wide",
         },
-        {
-          src: media("kickblast-judo", "bill"),
-          alt: "KickBlast Judo printable billing output",
-          caption: "A generated bill closes the gap between digital calculation and practical club administration.",
-          orientation: "portrait",
-        },
+
       ],
     },
     validation: {
-      headline: "The result is a complete desktop workflow, validated through use and feedback.",
+      headline: "A complete desktop workflow from record entry to printable billing.",
       intro:
         "The application was completed, functionally tested and published on GitHub. Its value is the way related club tasks operate through one data-connected interface.",
       evidence: [
@@ -510,7 +520,7 @@ export const projects: Project[] = [
       boundaries: [
         "No claim is made about real club adoption or time saved.",
         "The application uses one authenticated role rather than a multi-role permission system.",
-        "The project demonstrates a desktop management workflow, not a cloud service.",
+        "The application focuses on a desktop management workflow and does not include cloud deployment.",
       ],
       futureMeasures: [
         "Billing calculation error rate",
@@ -542,19 +552,19 @@ export const projects: Project[] = [
     shortTitle: "ETCP",
     type: "React Eco-Tourism Application",
     period: "March 2026 - April 2026",
-    status: "Completed frontend prototype",
+    status: "Completed React frontend",
     accent: "#138e62",
     cover: media("etcp", "cover"),
     cardSummary:
-      "A 50-screen React prototype where traveller and provider journeys evolved through research, sketches and usability feedback.",
+      "A 50-screen React frontend where traveller and provider journeys evolved through research, sketches and usability feedback.",
     tools: ["React 19", "JavaScript", "Vite", "Tailwind CSS 4", "Framer Motion", "Pigeon Maps"],
     links: [{ label: "GitHub", href: "https://github.com/SafanDev/eco-traveler-cloud-platform" }],
     role: "Solo product designer and frontend developer",
-    team: "Individual academic project",
+    team: "Independent project",
     hook:
       "ETCP started as a travel-discovery idea. Feedback exposed the missing piece: finding a place is not the same as being able to plan the trip.",
     overview:
-      "ETCP is a 50-screen mobile-app frontend for eco-travellers and service providers. I moved from questionnaire and requirements gathering through sketch, wireframe, React implementation and feedback-led iteration.",
+      "ETCP is a 50-screen React frontend connecting eco-travel discovery, trip planning and provider management through separate but consistent mobile journeys.",
     proof: [
       { value: "50", label: "interactive screens" },
       { value: "2", label: "traveller and provider journeys" },
@@ -584,7 +594,7 @@ export const projects: Project[] = [
     problem: {
       headline: "Eco-tourism involves a journey before, during and after discovery.",
       paragraphs: [
-        "Travellers need to compare destinations, understand services, save choices and organise a trip. Providers need a different view for listings, availability, bookings, reviews and performance.",
+        "Travellers need to compare destinations, save choices and organise a trip, while providers need a focused view of listings, availability, bookings and performance.",
         "The product therefore had to feel simple on a phone while still containing two substantial experiences. It also needed to explain its flows without a real backend, payment service or live travel API.",
       ],
       goal:
@@ -594,28 +604,37 @@ export const projects: Project[] = [
       headline: "Move from questions to a journey, not directly to polished screens.",
       methods: ["Questionnaire", "Requirements gathering", "Sketching", "Wireframing", "Usability testing"],
       paragraphs: [
-        "The questionnaire and requirements work helped separate must-have flows from decorative ideas. Search, destination information, bookings, reviews, profiles and provider management became the foundation.",
+        "Research separated essential journeys from decorative ideas. Discovery, bookings, reviews, profiles and provider management became the foundation.",
         "I began with a hand sketch to explore the mobile hierarchy, then used a wireframe to test the placement of content and navigation before building the visual interface in React.",
       ],
       media: [
         {
           src: media("etcp", "sketch"),
           alt: "Early hand sketch for ETCP mobile screens",
-          caption: "The sketch captured the first hierarchy quickly, before committing to detailed components.",
+          title: "From journeys to screen structure",
+          caption: "The hand-drawn exploration stays full width so its notes, hierarchy and early screen relationships remain readable.",
           orientation: "wide",
+          presentation: "comparison-board",
         },
         {
           src: media("etcp", "wireframe"),
           alt: "ETCP low-fidelity mobile wireframe",
-          caption: "The wireframe turned the sketch into a testable screen structure.",
+          title: "A focused booking flow before visual styling",
+          caption: "The wireframe translated the early thinking into a structured screen with clear booking information and a visible primary action.",
+          points: [
+            "Trip details grouped before price information",
+            "Primary confirmation action kept visually distinct",
+            "Content order tested before high-fidelity styling",
+          ],
           orientation: "portrait",
+          presentation: "spotlight",
         },
       ],
     },
     process: {
       headline: "The most useful iteration changed what the product could do.",
       intro:
-        "The process was not a straight line from wireframe to final screen. Testing revealed issues in contrast and reachability, then uncovered a larger missing workflow: trip planning.",
+        "Testing first exposed contrast and reachability issues, then revealed the larger missing workflow: turning destination discovery into a usable trip plan.",
       decisions: [
         {
           title: "Separate traveller and provider journeys",
@@ -627,13 +646,13 @@ export const projects: Project[] = [
             "Each user sees the tasks relevant to them without losing the sense that both sides belong to one product.",
         },
         {
-          title: "State-based navigation for a large prototype",
+          title: "State-based navigation across a large screen system",
           tension:
-            "Fifty screens can become difficult to demonstrate if every transition behaves like an unrelated page.",
+            "Fifty screens become difficult to navigate when every transition behaves like an unrelated page.",
           decision:
             "I built reusable screens with custom navigation state, route history and animated transitions.",
           why:
-            "The prototype feels like a mobile application while staying manageable as a frontend-only project.",
+            "The interface behaves like a mobile application while the reusable screen system keeps navigation manageable across the full experience.",
         },
         {
           title: "Place the main route action within thumb reach",
@@ -646,41 +665,28 @@ export const projects: Project[] = [
         },
       ],
       feedback:
-        "Testing led to three concrete changes: important text became white for better contrast, the navigation was made more mobile-friendly and the trip planner was added to connect destination discovery with an actionable plan.",
-      media: [
-        {
-          src: media("etcp", "feedback-board"),
-          alt: "ETCP before and after feedback board",
-          caption: "Feedback moved the route action from the top of the screen to an easier one-handed position.",
-          orientation: "wide",
-        },
-        {
-          src: media("etcp", "traveler-home"),
-          alt: "ETCP traveller home screen",
-          caption: "The traveller home balances discovery content with a compact mobile navigation model.",
-          orientation: "portrait",
-        },
-      ],
+        "Feedback improved contrast, simplified mobile navigation and introduced the trip planner as a core flow.",
       comparison: {
-        before: media("etcp", "trip-planner-before"),
-        after: media("etcp", "trip-planner-after"),
-        beforeAlt: "Earlier ETCP trip planner with action button near the top",
-        afterAlt: "Revised ETCP trip planner with action button near the bottom",
-        beforeLabel: "Before feedback",
-        afterLabel: "After feedback",
-        caption: "Drag the divider to compare the action placement before and after usability feedback.",
+        before: media("etcp", "map-action-before"),
+        after: media("etcp", "map-action-after"),
+        beforeAlt: "ETCP map screen before the route action was added",
+        afterAlt: "ETCP map screen after the route action was added",
+        beforeLabel: "Before",
+        afterLabel: "After",
+        caption: "Drag the divider to compare how the revised map makes the next route action visible without disrupting the existing discovery controls.",
       },
+      media: [],
     },
     solution: {
       headline: "A mobile product story that connects discovery, planning and service management.",
       intro:
-        "The final prototype demonstrates both sides of the platform through reusable React screens and realistic end-to-end journeys.",
+        "The final React frontend connects both sides of the platform through reusable screens and realistic end-to-end journeys.",
       features: [
         { title: "Destination discovery", text: "Search, filters, maps and property details help travellers compare options." },
         { title: "Trip planning", text: "A dedicated planner turns saved places and activities into a usable route." },
         { title: "Traveller activity", text: "Bookings, saved items, reviews and profile screens continue the journey after discovery." },
         { title: "Provider workspace", text: "Listings, availability, bookings, reviews, analytics and payouts are organised for service providers." },
-        { title: "Reusable screen system", text: "Shared components and navigation behaviour keep a 50-screen prototype consistent." },
+        { title: "Reusable screen system", text: "Shared components and navigation behaviour keep all 50 screens consistent." },
         { title: "Motion with purpose", text: "Transitions support orientation instead of becoming decoration that delays the user." },
       ],
       workflow: [
@@ -718,11 +724,11 @@ export const projects: Project[] = [
       ],
     },
     validation: {
-      headline: "The prototype became more usable because the feedback changed the flow.",
+      headline: "A React frontend improved through feedback-led iteration.",
       intro:
-        "ETCP was completed as a frontend prototype and tested through its main mobile interactions. Its most meaningful outcome is the visible movement from early idea to feedback-led product changes.",
+        "ETCP was completed as an interactive React frontend and tested through its main mobile interactions. Its strongest outcome is the visible movement from early idea to feedback-led product changes.",
       evidence: [
-        "Fifty-screen React frontend prototype",
+        "Fifty-screen React frontend",
         "Separate traveller and provider journeys",
         "Sketch and wireframe developed before high-fidelity implementation",
         "Contrast and navigation improved after usability feedback",
@@ -730,7 +736,7 @@ export const projects: Project[] = [
       ],
       boundaries: [
         "The project does not include a production backend or database.",
-        "Bookings, payouts and payments use prototype data rather than live services.",
+        "Bookings, payouts and payments use local interface data rather than live services.",
         "No real adoption, conversion or revenue numbers are claimed.",
       ],
       futureMeasures: [
@@ -744,14 +750,14 @@ export const projects: Project[] = [
       wentWell:
         "The project shows the full movement from research and sketching to React implementation and iteration. The traveller and provider experiences remain distinct without feeling like separate products.",
       differently:
-        "I would define a smaller prototype test plan earlier, document each usability observation more formally and validate the information architecture with more participants before building all fifty screens.",
+        "I would define a smaller test plan earlier, document each usability observation more formally and validate the information architecture with more participants before building all fifty screens.",
       learned: [
         "A polished discovery flow can still miss the user's next task",
         "Mobile reachability matters as much as visual balance",
-        "Reusable navigation is essential when prototypes become large",
+        "Reusable navigation is essential when screen systems become large",
       ],
       next: [
-        "Connect the prototype to a real API and authentication service",
+        "Connect the frontend to a real API and authentication service",
         "Test the trip planner with several realistic itineraries",
         "Add accessible loading, empty and error states for live data",
       ],
@@ -763,26 +769,26 @@ export const projects: Project[] = [
     shortTitle: "Enomy",
     type: "Finance Website UI/UX Design",
     period: "December 2025 - January 2026",
-    status: "Completed Figma prototype",
+    status: "Completed interactive Figma design",
     accent: "#7141d8",
     cover: media("enomy-finance", "cover"),
     cardSummary:
-      "A Figma prototype that makes currency conversion, investment quotes and account activity easier to understand.",
-    tools: ["Figma", "Auto Layout", "Reusable components", "Clickable prototype"],
+      "An interactive Figma design that makes currency conversion, investment quotes and account activity easier to understand.",
+    tools: ["Figma", "Auto Layout", "Reusable components", "Interactive Figma flow"],
     links: [
       {
-        label: "Figma prototype",
+        label: "View Figma design",
         href: "https://www.figma.com/design/IUAmQxfeTqMFcCiA4XFfwd/Enomy-Finance?t=tn6axTtPhgn2IXt5-0",
       },
     ],
     role: "Solo UI/UX designer",
-    team: "Individual academic project",
+    team: "Independent project",
     hook: "In a finance product, clarity is the visual effect.",
     overview:
-      "Enomy Finance is a clickable Figma prototype for currency conversion, investment quotes, user activity and administration. I used questionnaire findings, information hierarchy, Auto Layout and reusable components to turn dense financial tasks into connected journeys.",
+      "Enomy Finance is a connected Figma experience for currency conversion, investment quotes, dashboards and saved activity, built with reusable components and Auto Layout.",
     proof: [
       { value: "3", label: "customer, staff and admin views" },
-      { value: "1", label: "connected clickable prototype" },
+      { value: "1", label: "connected interactive flow" },
       { value: "Auto", label: "Layout across core screens" },
       { value: "Solo", label: "research and interface design" },
     ],
@@ -801,7 +807,7 @@ export const projects: Project[] = [
       },
       {
         label: "The payoff",
-        title: "A prototype that explains its workflows at a glance.",
+        title: "A design system that explains its workflows at a glance.",
         text: "Customer, staff and admin screens share one visual system while presenting different levels of detail.",
         href: "#solution",
       },
@@ -809,7 +815,7 @@ export const projects: Project[] = [
     problem: {
       headline: "People need to understand the consequence of a financial action before they commit.",
       paragraphs: [
-        "Currency conversion and investment quotes contain several pieces of information: amounts, rates, fees, limits, risk and final outcomes. Poor hierarchy can make a user re-read the same screen or question what a number means.",
+        "Currency conversion and investment quotes combine amounts, rates, fees, limits and outcomes. The interface needed to explain those consequences before users committed to an action.",
         "The project also needed to communicate different tasks for customers, staff and administrators without creating three unrelated visual systems.",
       ],
       goal:
@@ -819,20 +825,28 @@ export const projects: Project[] = [
       headline: "Find the information people look for before choosing a layout.",
       methods: ["Questionnaire", "Task analysis", "Content hierarchy", "Competitive review"],
       paragraphs: [
-        "Questionnaire responses helped identify the need for visible rates, clear fees, understandable results and accessible history. Those needs became the structure for the main journeys.",
+        "Questionnaire responses prioritised visible rates, clear fees, understandable outcomes and accessible history. Those needs shaped the main journeys.",
         "I did not create a separate wireframe set for this project. Instead, I explored hierarchy directly in Figma and used reusable components and Auto Layout to iterate without losing consistency.",
       ],
       media: [
         {
           src: media("enomy-finance", "homepage"),
-          alt: "Enomy Finance homepage design",
-          caption: "The homepage introduces the core financial services without forcing every detail into the first view.",
+          alt: "Complete Enomy Finance homepage design",
+          title: "A calm public entry point",
+          caption: "The full homepage introduces the service, its three core tools and the trust information needed before a financial task begins.",
+          points: [
+            "Primary services are visible without dense financial detail",
+            "Navigation separates exploration from account actions",
+            "Reusable cards establish the visual system early",
+          ],
           orientation: "portrait",
+          presentation: "spotlight",
         },
         {
           src: media("enomy-finance", "user-dashboard"),
           alt: "Enomy Finance user dashboard",
-          caption: "The user dashboard groups account activity and next actions around a clear information hierarchy.",
+          title: "Account information at a glance",
+          caption: "The dashboard groups balances, activity, performance and next actions around a clear information hierarchy.",
           orientation: "wide",
         },
       ],
@@ -871,33 +885,37 @@ export const projects: Project[] = [
         },
       ],
       feedback:
-        "The project used questionnaire input rather than formal usability testing. I therefore treated the prototype as a design hypothesis and documented what should be tested next instead of claiming validated task improvements.",
+        "Questionnaire input guided the information hierarchy, while formal task-based usability validation remains a clear next step.",
       media: [
         {
           src: media("enomy-finance", "quote-generator"),
           alt: "Enomy Finance investment quote generator",
+          title: "Quote inputs",
           caption: "The quote generator groups related inputs and keeps guidance close to the field that needs it.",
           orientation: "portrait",
+          presentation: "document",
         },
         {
           src: media("enomy-finance", "quote-results"),
           alt: "Enomy Finance quote result design",
-          caption: "The result state explains the outcome through hierarchy rather than presenting one isolated total.",
+          title: "Structured result",
+          caption: "The result state explains projections, fees and next actions through hierarchy rather than one isolated total.",
           orientation: "portrait",
+          presentation: "document",
         },
       ],
     },
     solution: {
       headline: "A consistent system for customer decisions and operational oversight.",
       intro:
-        "The final prototype connects public service discovery, customer tools, saved activity, staff workflows and administration through one interface system.",
+        "The final design connects public service discovery, customer tools, saved activity, staff workflows and administration through one interface system.",
       features: [
         { title: "Currency conversion", text: "Inputs, exchange rates, fees and results are organised as a clear decision flow." },
         { title: "Investment quotes", text: "Users can enter requirements, review a structured outcome and keep previous quotes accessible." },
         { title: "Account dashboard", text: "Balances, activity and actions are grouped around what the user is likely to need next." },
         { title: "Saved history", text: "Quotes and transactions can be revisited without repeating the original task." },
         { title: "Staff and admin views", text: "Operational screens use denser tables and controls while preserving the same component language." },
-        { title: "Clickable prototype", text: "Connected screens demonstrate the intended flow instead of presenting disconnected mockups." },
+        { title: "Interactive Figma flow", text: "Connected screens present the intended journey instead of isolated layouts." },
       ],
       workflow: [
         "Choose service",
@@ -910,20 +928,31 @@ export const projects: Project[] = [
         {
           src: media("enomy-finance", "homepage"),
           alt: "Enomy Finance public homepage",
+          title: "Public service experience",
           caption: "The public view introduces services and establishes trust through a restrained hierarchy.",
           orientation: "portrait",
+          presentation: "document",
         },
         {
           src: media("enomy-finance", "quote-results"),
           alt: "Enomy Finance investment result",
+          title: "Investment result",
           caption: "The result screen connects figures, explanation and next actions in one state.",
           orientation: "portrait",
+          presentation: "document",
         },
         {
           src: media("enomy-finance", "saved-history"),
           alt: "Enomy Finance saved quotes and transaction history",
-          caption: "History screens let users continue from previous decisions instead of starting again.",
+          title: "Saved activity that supports continuation",
+          caption: "History screens let users return to previous decisions instead of repeating the original task.",
+          points: [
+            "Saved quotes keep their key values visible",
+            "Search and filters support repeat visits",
+            "Actions stay close to the record they affect",
+          ],
           orientation: "portrait",
+          presentation: "spotlight",
         },
         {
           src: media("enomy-finance", "admin-dashboard"),
@@ -934,17 +963,17 @@ export const projects: Project[] = [
       ],
     },
     validation: {
-      headline: "The result is a design system and testable prototype, not a coded finance platform.",
+      headline: "A connected Figma experience and reusable interface system.",
       intro:
-        "Enomy Finance communicates the intended journeys through a connected Figma prototype. Its value is the clarity and consistency of the proposed solution, while formal usability validation remains future work.",
+        "The interactive design connects customer, staff and admin journeys through one visual system. Coded implementation and formal usability validation remain future work.",
       evidence: [
         "Questionnaire-informed service and information priorities",
-        "Connected prototype covering customer, staff and admin flows",
+        "Connected customer, staff and admin flows",
         "Reusable components and Auto Layout across the core screens",
         "Currency conversion, quote, dashboard and history journeys represented",
       ],
       boundaries: [
-        "The project is a Figma prototype, not a coded application.",
+        "The work focuses on interaction and interface design; coded implementation remains future work.",
         "No working database, live market data or financial transaction service is claimed.",
         "No usability-test improvement percentages are claimed.",
       ],
@@ -963,12 +992,12 @@ export const projects: Project[] = [
       learned: [
         "Financial hierarchy should explain consequence, not only value",
         "Reusable components improve both consistency and iteration speed",
-        "A prototype should clearly separate demonstrated flow from implemented functionality",
+        "Interactive design should clearly separate intended flow from implemented functionality",
       ],
       next: [
         "Test quote comprehension with realistic tasks",
         "Design accessible error and verification states",
-        "Create a coded component prototype for the highest-risk journey",
+        "Build the highest-risk journey as a coded component flow",
       ],
     },
   },

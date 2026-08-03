@@ -137,10 +137,12 @@ export default function HomePage() {
                 <Image
                   src="/media/profile/safan.webp"
                   alt="Portrait of Mohamed Safan"
-                  fill
+                  width={2048}
+                  height={2048}
                   preload
                   quality={90}
                   sizes="(max-width: 520px) 340px, (max-width: 960px) 390px, 560px"
+                  className="hero__portrait-image"
                 />
               </div>
             </div>

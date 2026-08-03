@@ -52,8 +52,8 @@ export default function ImageComparison({
   );
 
   const displayWidth = Math.min(
-    280,
-    Math.max(230, Math.round(sourceWidth * 1.35)),
+    560,
+    Math.max(340, Math.round(sourceWidth * 0.72)),
   );
 
   const style: ComparisonStyle = {
@@ -69,9 +69,11 @@ export default function ImageComparison({
           <Image
             src={after}
             alt={afterAlt}
-            fill
+            width={afterDimensions.width}
+            height={afterDimensions.height}
             unoptimized
             sizes={`${displayWidth}px`}
+            className="comparison__asset"
           />
 
           <span>{afterLabel}</span>
@@ -81,9 +83,11 @@ export default function ImageComparison({
           <Image
             src={before}
             alt={beforeAlt}
-            fill
+            width={beforeDimensions.width}
+            height={beforeDimensions.height}
             unoptimized
             sizes={`${displayWidth}px`}
+            className="comparison__asset"
           />
 
           <span>{beforeLabel}</span>

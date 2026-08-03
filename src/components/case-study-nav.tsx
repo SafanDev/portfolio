@@ -220,7 +220,7 @@ export default function CaseStudyNav({
       aria-label="Project page navigation"
     >
       <div className="case-nav__heading">
-        <span>Explore</span>
+        <span>On this page</span>
         <strong>{roundedProgress}%</strong>
       </div>
 

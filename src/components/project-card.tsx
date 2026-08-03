@@ -6,6 +6,7 @@ import {
   ArrowRightIcon,
   ExternalLinkIcon,
 } from "@/components/icons";
+import { mediaMeta } from "@/data/media-meta";
 import type { Project } from "@/data/projects";
 
 type ProjectCardProps = {
@@ -17,6 +18,11 @@ export default function ProjectCard({
   project,
   featured = false,
 }: ProjectCardProps) {
+  const coverDimensions = mediaMeta[project.cover] ?? {
+    width: 1448,
+    height: 1086,
+  };
+
   return (
     <article
       className={`project-card${
@@ -37,9 +43,11 @@ export default function ProjectCard({
         <Image
           src={project.cover}
           alt={`${project.title} project interface showcase`}
-          fill
+          width={coverDimensions.width}
+          height={coverDimensions.height}
           quality={90}
           sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1180px) 50vw, 620px"
+          className="project-card__image"
         />
 
         <div

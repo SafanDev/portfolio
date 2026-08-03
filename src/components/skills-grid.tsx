@@ -19,10 +19,12 @@ import {
   SiHtml5,
   SiJavascript,
   SiMysql,
+  SiNextdotjs,
   SiNodedotjs,
   SiPhp,
   SiReact,
   SiTailwindcss,
+  SiTypescript,
   SiVite,
 } from "react-icons/si";
 
@@ -36,6 +38,8 @@ import { TbBrandCSharp } from "react-icons/tb";
 
 const IconMap: Record<string, ElementType> = {
   react: SiReact,
+  nextjs: SiNextdotjs,
+  typescript: SiTypescript,
   javascript: SiJavascript,
   html: SiHtml5,
   css: SiCss,

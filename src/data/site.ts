@@ -27,6 +27,8 @@ export type Skill = {
 
 export const skills: Skill[] = [
   { name: "React", icon: "react", color: "#61DAFB", category: "Frontend" },
+  { name: "Next.js", icon: "nextjs", color: "#FFFFFF", category: "Frontend" },
+  { name: "TypeScript", icon: "typescript", color: "#3178C6", category: "Frontend" },
   { name: "JavaScript", icon: "javascript", color: "#F7DF1E", category: "Frontend" },
   { name: "HTML5", icon: "html", color: "#E34F26", category: "Frontend" },
   { name: "CSS3", icon: "css", color: "#1572B6", category: "Frontend" },

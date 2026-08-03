@@ -1,15 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
-
-async function installClipboardMock(page: Page) {
-  await page.addInitScript(() => {
-    Object.defineProperty(navigator, "clipboard", {
-      configurable: true,
-      value: {
-        writeText: async () => undefined,
-      },
-    });
-  });
-}
+import { expect, test } from "@playwright/test";
 
 test.describe("Portfolio core journeys", () => {
   test("homepage exposes the main portfolio sections", async ({ page }) => {
@@ -75,14 +64,21 @@ test.describe("Portfolio core journeys", () => {
   });
 
   test("copy-email control reports success", async ({ page }) => {
-    await installClipboardMock(page);
     await page.goto("/");
 
-    const copyButton = page.getByRole("button", {
-      name: /Copy email/i,
+    await page.evaluate(() => {
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true,
+        value: {
+          writeText: async () => undefined,
+        },
+      });
     });
 
+    const copyButton = page.locator("button.copy-email");
+
     await expect(copyButton).toBeVisible();
+    await expect(copyButton).toHaveAccessibleName(/Copy email/i);
     await copyButton.click();
     await expect(copyButton).toContainText("Email copied");
   });
@@ -155,7 +151,10 @@ test.describe("Portfolio core journeys", () => {
           document.documentElement.clientWidth,
       );
 
-      expect(overflow, `Horizontal overflow detected on ${route}`).toBeLessThanOrEqual(1);
+      expect(
+        overflow,
+        `Horizontal overflow detected on ${route}`,
+      ).toBeLessThanOrEqual(1);
     }
   });
 });

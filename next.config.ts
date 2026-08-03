@@ -14,7 +14,6 @@ const csp = [
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
-  isProduction ? "upgrade-insecure-requests" : "",
 ].filter(Boolean).join("; ");
 
 const securityHeaders = [
