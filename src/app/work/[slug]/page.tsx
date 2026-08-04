@@ -8,6 +8,7 @@ import SiteHeader from "@/components/site-header";
 import CaseStudyNav, { type CaseSectionLink } from "@/components/case-study-nav";
 import MediaGallery from "@/components/media-gallery";
 import ImageComparison from "@/components/image-comparison";
+import ProjectVideo from "@/components/project-video";
 import EmailLink from "@/components/email-link";
 
 import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon, PlayIcon } from "@/components/icons";
@@ -173,15 +174,13 @@ function DetailedCaseStudy({ project }: { project: Project }) {
         <FeatureGrid project={project} />
         <Workflow project={project} />
 
-        {project.solution.videoReady && (
-          <div className="project-video-placeholder" role="group" aria-label={`${project.title} project walkthrough video placeholder`}>
-            <div className="project-video-placeholder__content">
-              <p className="project-video-placeholder__label">Project walkthrough</p>
-              <h3>Video walkthrough coming soon</h3>
-              <p>A concise tour of the customer journey, admin dashboard and inventory workflow will appear here.</p>
-            </div>
-            <span className="project-video-placeholder__icon" aria-hidden="true"><PlayIcon /></span>
-          </div>
+        {project.solution.video && (
+          <ProjectVideo
+            src={project.solution.video.src}
+            poster={project.solution.video.poster}
+            title={project.title}
+            durationLabel={project.solution.video.durationLabel}
+          />
         )}
 
         <MediaGallery items={project.solution.media} label={`${project.title} final solution visuals`} />
@@ -371,6 +370,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   {link.label}<ExternalLinkIcon />
                 </a>
               ))}
+              {project.solution.video && (
+                <Link
+                  href="#walkthrough"
+                  className="button button--secondary icon-link"
+                  aria-label={`Watch the ${project.title} project walkthrough`}
+                >
+                  Watch walkthrough
+                  <PlayIcon />
+                </Link>
+              )}
             </div>
           </div>
 

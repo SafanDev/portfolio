@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   ExternalLinkIcon,
+  PlayIcon,
 } from "@/components/icons";
 import { mediaMeta } from "@/data/media-meta";
 import type { Project } from "@/data/projects";
@@ -62,6 +63,7 @@ export default function ProjectCard({
           View project
           <ArrowRightIcon />
         </span>
+
       </Link>
 
       <div className="project-card__body">
@@ -98,6 +100,17 @@ export default function ProjectCard({
             Case study
             <ArrowRightIcon />
           </Link>
+
+          {project.solution.video && (
+            <Link
+              href={`/work/${project.slug}#walkthrough`}
+              className="project-card__walkthrough-link icon-link"
+              aria-label={`Watch the ${project.title} project walkthrough`}
+            >
+              Walkthrough
+              <PlayIcon />
+            </Link>
+          )}
 
           {project.links.map((link) => (
             <a

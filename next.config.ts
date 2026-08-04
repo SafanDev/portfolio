@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90, 100],
+    qualities: [75, 90, 92, 100],
     localPatterns: [{ pathname: "/media/**" }],
     deviceSizes: [360, 640, 768, 1024, 1280, 1536],
     imageSizes: [64, 96, 128, 256, 384],

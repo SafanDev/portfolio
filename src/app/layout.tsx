@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-
 import ScrollReveal from "@/components/scroll-reveal";
 import { siteConfig } from "@/data/site";
 import { getSiteUrl } from "@/lib/site-url";

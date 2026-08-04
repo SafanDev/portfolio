@@ -71,7 +71,11 @@ export type Project = {
     features: { title: string; text: string }[];
     workflow: string[];
     media: ProjectMedia[];
-    videoReady?: boolean;
+    video?: {
+      src: string;
+      poster: string;
+      durationLabel: string;
+    };
   };
   validation: {
     headline: string;
@@ -302,7 +306,11 @@ export const projects: Project[] = [
           orientation: "wide",
         },
       ],
-      videoReady: true,
+      video: {
+        src: "/media/projects/velvet-vogue/velvet-vogue-walkthrough.mp4",
+        poster: "/media/projects/velvet-vogue/velvet-vogue-walkthrough-poster.webp",
+        durationLabel: "1:53",
+      },
     },
     validation: {
       headline: "A deployed retail platform connecting customer and administrator workflows.",
