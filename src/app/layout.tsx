@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import ScrollReveal from "@/components/scroll-reveal";
+import PortfolioAnalytics from "@/components/portfolio-analytics";
 import { siteConfig } from "@/data/site";
+import { serializePersonSchema } from "@/data/person-schema";
 import { getSiteUrl } from "@/lib/site-url";
 
 import "./globals.css";
+import "./section-refinements.css";
 
 const siteUrl = getSiteUrl();
 
@@ -67,30 +70,7 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: siteConfig.fullName,
-  alternateName: siteConfig.name,
-  jobTitle: siteConfig.role,
-  email: `mailto:${siteConfig.email}`,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Batticaloa",
-    addressCountry: "Sri Lanka",
-  },
-  sameAs: [siteConfig.github, siteConfig.linkedin],
-  url: siteUrl,
-  knowsAbout: [
-    "React",
-    "JavaScript",
-    "PHP",
-    "MySQL",
-    "C#",
-    "SQL Server",
-    "Figma",
-  ],
-};
+const personSchemaJson = serializePersonSchema(siteUrl);
 
 export default function RootLayout({
   children,
@@ -110,9 +90,11 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
+            __html: personSchemaJson,
           }}
         />
+
+        <PortfolioAnalytics />
       </body>
     </html>
   );

@@ -1,0 +1,331 @@
+.section {
+  padding-block: clamp(68px, 8vw, 108px);
+  border-top: 1px solid var(--line);
+}
+
+.inner {
+  display: grid;
+  padding: clamp(32px, 4.6vw, 58px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  gap: clamp(44px, 7vw, 92px);
+  align-items: center;
+  background:
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(255, 255, 255, 0.035),
+      transparent 34%
+    ),
+    var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.copy {
+  min-width: 0;
+}
+
+.availability {
+  display: inline-flex;
+  min-height: 28px;
+  padding: 0 10px;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 680;
+  letter-spacing: 0.01em;
+}
+
+.availability > span {
+  width: 7px;
+  height: 7px;
+  background: #88b89a;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(136, 184, 154, 0.1);
+}
+
+.label {
+  display: flex;
+  width: min(100%, 230px);
+  margin-top: 24px;
+  align-items: center;
+  gap: 13px;
+  color: var(--muted-2);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 720;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.label::after {
+  width: 64px;
+  height: 1px;
+  flex: 0 0 64px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+  content: "";
+}
+
+.copy h2 {
+  margin-top: 9px;
+  font-size: clamp(2.8rem, 5.1vw, 5.25rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.description {
+  max-width: 590px;
+  margin-top: 21px;
+  color: var(--muted);
+  font-size: clamp(0.96rem, 1.2vw, 1.05rem);
+  line-height: 1.72;
+}
+
+.actions {
+  display: grid;
+  gap: 22px;
+}
+
+.emailGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.actionLabel {
+  color: var(--muted-2);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 720;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.email {
+  display: grid;
+  position: relative;
+  min-height: 72px;
+  padding: 11px 15px;
+  grid-template-columns: 40px minmax(0, 1fr) 18px;
+  gap: 13px;
+  align-items: center;
+  color: var(--text);
+  background: #090b0e;
+  border: 1px solid var(--line-strong);
+  border-radius: 15px;
+  transition:
+    border-color 170ms ease,
+    background 170ms ease,
+    transform 170ms ease;
+}
+
+.email:hover,
+.email:focus-visible {
+  background: #0d1014;
+  border-color: rgba(255, 255, 255, 0.31);
+  transform: translateY(-2px);
+}
+
+.emailIcon,
+.linkIcon {
+  display: grid;
+  place-items: center;
+  color: var(--text-soft);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--line);
+}
+
+.emailIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+}
+
+.emailIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.emailText {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.emailText > span {
+  color: var(--muted-2);
+  font-size: 0.69rem;
+  font-weight: 700;
+}
+
+.emailText strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trailingIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  transition: color 170ms ease, transform 170ms ease;
+}
+
+.email:hover .trailingIcon,
+.email:focus-visible .trailingIcon {
+  color: var(--white);
+  transform: translate(1px, -1px);
+}
+
+.copyButton :global(.copy-email) {
+  width: 100%;
+  min-height: 44px;
+  padding-inline: 14px;
+  color: var(--muted);
+  background: transparent;
+  border-color: var(--line);
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.copyButton :global(.copy-email:hover),
+.copyButton :global(.copy-email:focus-visible) {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.035);
+  border-color: var(--line-strong);
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.link {
+  display: grid;
+  min-width: 0;
+  min-height: 54px;
+  padding: 10px 11px;
+  grid-template-columns: 30px minmax(0, 1fr) 14px;
+  gap: 9px;
+  align-items: center;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.018);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 720;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.linkPrimary {
+  color: var(--text-soft);
+  background: rgba(255, 255, 255, 0.035);
+  border-color: var(--line-strong);
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.linkIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+
+.linkIcon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.linkArrow {
+  width: 13px;
+  height: 13px;
+  color: var(--muted-2);
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.link:hover .linkArrow,
+.link:focus-visible .linkArrow {
+  color: var(--text);
+  transform: translate(1px, -1px);
+}
+
+@media (max-width: 1040px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .copy,
+  .description {
+    max-width: 720px;
+  }
+
+  .actions {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    padding-block: 58px;
+  }
+
+  .inner {
+    padding: 24px;
+    gap: 34px;
+    border-radius: 18px;
+  }
+
+  .availability {
+    max-width: 100%;
+    font-size: 0.66rem;
+  }
+
+  .copy h2 {
+    font-size: clamp(2.65rem, 13vw, 4.15rem);
+  }
+
+  .description {
+    margin-top: 18px;
+    font-size: 0.94rem;
+  }
+
+  .links {
+    grid-template-columns: 1fr;
+  }
+
+  .link {
+    min-height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .email,
+  .trailingIcon,
+  .link,
+  .linkArrow {
+    transition: none;
+  }
+
+  .email:hover,
+  .email:focus-visible,
+  .link:hover,
+  .link:focus-visible {
+    transform: none;
+  }
+}

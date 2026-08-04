@@ -3,13 +3,12 @@ import Image from "next/image";
 import SiteHeader from "@/components/site-header";
 import ProjectCard from "@/components/project-card";
 import SkillsGrid from "@/components/skills-grid";
-import CopyEmailButton from "@/components/copy-email-button";
 import EmailLink from "@/components/email-link";
+import AboutSection from "@/components/about-section";
+import ContactSection from "@/components/contact-section";
 
 import {
   ArrowUpIcon,
-  DownloadIcon,
-  ExternalLinkIcon,
   GitHubIcon,
   LinkedInIcon,
   MailIcon,
@@ -73,7 +72,7 @@ export default function HomePage() {
                   href="#contact"
                   className="button button--primary hero__cta"
                 >
-                  Get in Touch
+                  <span>Get in Touch</span>
                 </a>
               </div>
 
@@ -197,153 +196,9 @@ export default function HomePage() {
           <SkillsGrid />
         </section>
 
-        <section
-          id="about"
-          className="section-shell content-section about-section"
-          aria-labelledby="about-title"
-        >
-          <div
-            className="section-heading"
-            data-reveal
-          >
-            <p>About</p>
+        <AboutSection />
 
-            <h2 id="about-title">
-              A developer who cares about both
-              sides of the product.
-            </h2>
-          </div>
-
-          <div
-            className="about-grid"
-            data-reveal
-          >
-            <div className="about-copy">
-              <p>
-                I enjoy taking an idea through
-                interface design, database
-                structure, development, testing,
-                and refinement. My recent BTEC HND
-                in Software Engineering gave me a
-                solid grounding in the full stack,
-                from PHP and MySQL backends to C#
-                desktop applications and React
-                frontends.
-              </p>
-            </div>
-
-            <div className="about-facts">
-              <article>
-                <span>Education</span>
-
-                <strong>
-                  BTEC HND in Computing (Software
-                  Engineering)
-                </strong>
-
-                <p>
-                  ESOFT Metro Campus · 2025–2026
-                </p>
-              </article>
-
-              <article>
-                <span>Looking for</span>
-
-                <strong>
-                  Junior full-stack roles
-                </strong>
-
-                <p>
-                  Software development internships
-                </p>
-              </article>
-
-              <article>
-                <span>Work preference</span>
-
-                <strong>Sri Lanka</strong>
-
-                <p>Remote worldwide</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          className="contact-section"
-          aria-labelledby="contact-title"
-        >
-          <div
-            className="contact-section__inner section-shell"
-            data-reveal
-          >
-            <div className="contact-copy">
-              <p className="contact-label">
-                Contact
-              </p>
-
-              <h2 id="contact-title">
-                Let&apos;s Connect
-              </h2>
-
-              <p>
-                I&apos;m open to junior full-stack
-                roles, software development
-                internships, and remote
-                opportunities. Feel free to reach
-                out about a role, project, or
-                conversation.
-              </p>
-            </div>
-
-            <div className="contact-actions">
-              <EmailLink
-                className="contact-email icon-link"
-                aria-label={`Email Safan at ${siteConfig.email}`}
-              >
-                <span>{siteConfig.email}</span>
-                <ExternalLinkIcon />
-              </EmailLink>
-
-              <CopyEmailButton />
-
-              <div className="contact-links">
-                <a
-                  href={siteConfig.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="icon-link"
-                  aria-label="Open Safan's GitHub profile in a new tab"
-                >
-                  GitHub
-                  <ExternalLinkIcon />
-                </a>
-
-                <a
-                  href={siteConfig.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="icon-link"
-                  aria-label="Open Safan's LinkedIn profile in a new tab"
-                >
-                  LinkedIn
-                  <ExternalLinkIcon />
-                </a>
-
-                <a
-                  href={siteConfig.cv}
-                  download
-                  className="icon-link"
-                  aria-label="Download Mohamed Safan's resume"
-                >
-                  Resume
-                  <DownloadIcon />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContactSection />
 
         <footer className="site-footer section-shell">
           <p>

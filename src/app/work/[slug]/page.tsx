@@ -367,7 +367,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   rel="noopener noreferrer"
                   className={index === 0 ? "button button--primary icon-link" : "button button--secondary icon-link"}
                 >
-                  {link.label}<ExternalLinkIcon />
+                  <span>{link.label}</span><ExternalLinkIcon />
                 </a>
               ))}
               {project.solution.video && (

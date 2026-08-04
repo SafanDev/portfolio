@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-import { DownloadIcon } from "@/components/icons";
+import { DownloadIcon, ExternalLinkIcon } from "@/components/icons";
 import { navigation, siteConfig } from "@/data/site";
 
 type SiteHeaderProps = {
@@ -45,6 +45,54 @@ export default function SiteHeader({
 
   useEffect(() => {
     let frame = 0;
+    let resizeObserver: ResizeObserver | null = null;
+    let activationLine = Math.min(
+      window.innerHeight * 0.32,
+      220,
+    );
+    let homeSectionMetrics: Array<{
+      id: string;
+      top: number;
+    }> = [];
+
+    const main = document.getElementById("main-content");
+
+    const measureHomeSections = () => {
+      activationLine = Math.min(
+        window.innerHeight * 0.32,
+        220,
+      );
+
+      if (pathname !== "/") {
+        homeSectionMetrics = [];
+        return;
+      }
+
+      homeSectionMetrics = navigation
+        .map((item) => {
+          const id = getSectionId(item.href);
+          const element = document.getElementById(id);
+
+          if (!element) {
+            return null;
+          }
+
+          return {
+            id,
+            top:
+              window.scrollY +
+              element.getBoundingClientRect().top,
+          };
+        })
+        .filter(
+          (
+            section,
+          ): section is {
+            id: string;
+            top: number;
+          } => section !== null,
+        );
+    };
 
     const updateHeaderState = () => {
       cancelAnimationFrame(frame);
@@ -56,23 +104,13 @@ export default function SiteHeader({
           return;
         }
 
-        const activationLine = Math.min(
-          window.innerHeight * 0.32,
-          220,
-        );
-
+        const activationPosition =
+          window.scrollY + activationLine;
         let nextActiveSection = "home";
 
-        for (const item of navigation) {
-          const sectionId = getSectionId(item.href);
-          const section = document.getElementById(sectionId);
-
-          if (
-            section &&
-            section.getBoundingClientRect().top <=
-              activationLine
-          ) {
-            nextActiveSection = sectionId;
+        for (const section of homeSectionMetrics) {
+          if (section.top <= activationPosition) {
+            nextActiveSection = section.id;
           }
         }
 
@@ -95,18 +133,30 @@ export default function SiteHeader({
       });
     };
 
+    const handleLayoutChange = () => {
+      measureHomeSections();
+      updateHeaderState();
+    };
+
+    measureHomeSections();
     updateHeaderState();
 
     window.addEventListener("scroll", updateHeaderState, {
       passive: true,
     });
-    window.addEventListener("resize", updateHeaderState);
+    window.addEventListener("resize", handleLayoutChange);
     window.addEventListener("hashchange", updateHeaderState);
+
+    if (pathname === "/" && main && "ResizeObserver" in window) {
+      resizeObserver = new ResizeObserver(handleLayoutChange);
+      resizeObserver.observe(main);
+    }
 
     return () => {
       cancelAnimationFrame(frame);
+      resizeObserver?.disconnect();
       window.removeEventListener("scroll", updateHeaderState);
-      window.removeEventListener("resize", updateHeaderState);
+      window.removeEventListener("resize", handleLayoutChange);
       window.removeEventListener(
         "hashchange",
         updateHeaderState,
@@ -222,7 +272,6 @@ export default function SiteHeader({
               width={38}
               height={38}
               className="brand-logo__image"
-              preload
             />
           </Link>
 
@@ -251,15 +300,28 @@ export default function SiteHeader({
           </nav>
 
           <div className="header-actions">
-            <a
-              href={siteConfig.cv}
-              download
-              className="button button--secondary cv-button"
-              aria-label="Download Mohamed Safan's resume"
-            >
-              Resume
-              <DownloadIcon />
-            </a>
+            <div className="cv-actions">
+              <a
+                href={siteConfig.cv}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cv-preview-link"
+                aria-label="View Mohamed Safan's CV in a new tab"
+              >
+                <span>View CV</span>
+                <ExternalLinkIcon />
+              </a>
+
+              <a
+                href={siteConfig.cv}
+                download
+                className="button button--primary cv-download-button"
+                aria-label="Download Mohamed Safan's CV"
+              >
+                <span>Download CV</span>
+                <DownloadIcon />
+              </a>
+            </div>
 
             <button
               ref={menuButtonRef}
@@ -340,15 +402,30 @@ export default function SiteHeader({
               );
             })}
 
-            <a
-              href={siteConfig.cv}
-              download
-              className="nav-resume"
-              onClick={closeMobileMenu}
-            >
-              Download Resume
-              <DownloadIcon />
-            </a>
+            <div className="mobile-nav__cv-actions">
+              <a
+                href={siteConfig.cv}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-cv-view"
+                aria-label="View Mohamed Safan's CV in a new tab"
+                onClick={closeMobileMenu}
+              >
+                View CV
+                <ExternalLinkIcon />
+              </a>
+
+              <a
+                href={siteConfig.cv}
+                download
+                className="button button--primary nav-resume"
+                aria-label="Download Mohamed Safan's CV"
+                onClick={closeMobileMenu}
+              >
+                <span>Download CV</span>
+                <DownloadIcon />
+              </a>
+            </div>
           </nav>
         </div>
       </dialog>

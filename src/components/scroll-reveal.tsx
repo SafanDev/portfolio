@@ -14,10 +14,10 @@ export default function ScrollReveal() {
     const root = document.documentElement;
 
     let observer: IntersectionObserver | null = null;
-    let mutationObserver: MutationObserver | null =
-      null;
     let setupFrame = 0;
     let readyFrame = 0;
+    let hashScrollFrame = 0;
+    let hashScrollTimer = 0;
     let isCurrent = true;
 
     root.classList.remove(
@@ -43,7 +43,7 @@ export default function ScrollReveal() {
       );
     };
 
-    const revealHashTarget = () => {
+    const revealHashTarget = (restoreScroll = false) => {
       const hash = window.location.hash.slice(1);
 
       if (!hash) {
@@ -73,6 +73,50 @@ export default function ScrollReveal() {
           revealSelector,
         )
         .forEach(reveal);
+
+      if (!restoreScroll) {
+        return;
+      }
+
+      const scrollTargetIntoView = () => {
+        const rect = target.getBoundingClientRect();
+        const headerOffset = 112;
+        const isInViewport =
+          rect.bottom > headerOffset &&
+          rect.top < window.innerHeight;
+
+        if (!isInViewport) {
+          const scrollMarginTop =
+            Number.parseFloat(
+              window.getComputedStyle(target).scrollMarginTop,
+            ) || headerOffset;
+          const targetTop =
+            window.scrollY + rect.top - scrollMarginTop;
+
+          window.scrollTo(0, Math.max(0, targetTop));
+        }
+      };
+
+      cancelAnimationFrame(hashScrollFrame);
+      window.clearTimeout(hashScrollTimer);
+
+      hashScrollFrame = requestAnimationFrame(() => {
+        hashScrollFrame = requestAnimationFrame(
+          scrollTargetIntoView,
+        );
+      });
+
+      // Images and deferred layout can settle after the first paint. This
+      // second guarded check keeps direct hash URLs reliable without
+      // moving a target that is already visible.
+      hashScrollTimer = window.setTimeout(
+        scrollTargetIntoView,
+        140,
+      );
+    };
+
+    const handleHashChange = () => {
+      revealHashTarget(true);
     };
 
     const setup = () => {
@@ -89,6 +133,7 @@ export default function ScrollReveal() {
 
       if (reducedMotion || !supportsObserver) {
         revealAll();
+        revealHashTarget(true);
         return;
       }
 
@@ -110,24 +155,26 @@ export default function ScrollReveal() {
         );
 
         const register = (element: HTMLElement) => {
-          if (
-            element.classList.contains(
-              "is-visible",
-            )
-          ) {
+          if (element.classList.contains("is-visible")) {
             return;
           }
 
-          const rect =
-            element.getBoundingClientRect();
+          const isInsideDeferredSection = Boolean(
+            element.closest(
+              ".content-section, .contact-section, .case-section",
+            ),
+          );
 
-          const isNearViewport =
-            rect.top <= window.innerHeight * 1.05 &&
-            rect.bottom >= -80;
+          if (!isInsideDeferredSection) {
+            const rect = element.getBoundingClientRect();
+            const isNearViewport =
+              rect.top <= window.innerHeight * 1.05 &&
+              rect.bottom >= -80;
 
-          if (isNearViewport) {
-            reveal(element);
-            return;
+            if (isNearViewport) {
+              reveal(element);
+              return;
+            }
           }
 
           observer?.observe(element);
@@ -139,7 +186,7 @@ export default function ScrollReveal() {
           )
           .forEach(register);
 
-        revealHashTarget();
+        revealHashTarget(true);
 
         root.classList.add(
           readyClass,
@@ -150,41 +197,9 @@ export default function ScrollReveal() {
           root.classList.remove(initializingClass);
         });
 
-        mutationObserver = new MutationObserver(
-          (mutations) => {
-            mutations.forEach((mutation) => {
-              mutation.addedNodes.forEach((node) => {
-                if (!(node instanceof HTMLElement)) {
-                  return;
-                }
-
-                if (node.matches(revealSelector)) {
-                  register(node);
-                }
-
-                node
-                  .querySelectorAll<HTMLElement>(
-                    revealSelector,
-                  )
-                  .forEach(register);
-              });
-            });
-          },
-        );
-
-        mutationObserver.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-
         window.addEventListener(
           "hashchange",
-          revealHashTarget,
-        );
-
-        window.addEventListener(
-          "pageshow",
-          revealHashTarget,
+          handleHashChange,
         );
       } catch {
         revealAll();
@@ -198,18 +213,14 @@ export default function ScrollReveal() {
 
       cancelAnimationFrame(setupFrame);
       cancelAnimationFrame(readyFrame);
+      cancelAnimationFrame(hashScrollFrame);
+      window.clearTimeout(hashScrollTimer);
 
       window.removeEventListener(
         "hashchange",
-        revealHashTarget,
+        handleHashChange,
       );
 
-      window.removeEventListener(
-        "pageshow",
-        revealHashTarget,
-      );
-
-      mutationObserver?.disconnect();
       observer?.disconnect();
 
       root.classList.remove(

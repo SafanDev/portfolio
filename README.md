@@ -9,7 +9,8 @@ A dark, responsive developer portfolio built with Next.js 16, React, TypeScript 
 - Sticky case-study navigation with reading progress
 - Responsive project cards and interactive skill cards
 - Natural-aspect project media with intrinsic image dimensions
-- Local assets with no tracking scripts or external font dependency
+- Local assets with no external font dependency
+- Privacy-friendly analytics that stays disabled until production activation
 - Reduced-motion and keyboard-navigation support
 - Security headers, metadata, sitemap, robots and structured data
 - Playwright coverage for desktop and mobile core journeys
@@ -60,6 +61,12 @@ Create a production build:
 npm.cmd run build
 ```
 
+Run the dependency-free unit tests:
+
+```powershell
+npm.cmd run test:unit
+```
+
 Run the complete Playwright suite:
 
 ```powershell
@@ -84,7 +91,7 @@ Open the most recent HTML report:
 npm.cmd run test:e2e:report
 ```
 
-Run lint, build and end-to-end tests together:
+Run lint, unit tests, build and end-to-end tests together:
 
 ```powershell
 npm.cmd run verify
@@ -148,3 +155,18 @@ https://your-real-domain.com/api/og?title=Velvet%20Vogue&type=Full-Stack%20Web%2
 ## Images
 
 Project screenshots are displayed without redrawing or AI upscaling. Larger media can use Next.js responsive image optimization, while small screenshots retain their original pixels.
+
+## Analytics after deployment
+
+The analytics script is disabled by default, so local testing does not pollute production data. After deploying to Vercel:
+
+1. Open the project in Vercel and enable **Web Analytics**.
+2. Set this production environment variable:
+
+```env
+NEXT_PUBLIC_ENABLE_ANALYTICS=true
+```
+
+3. Redeploy the production site.
+
+The setup collects privacy-friendly page views and visitor metrics without cookies. Custom button events are intentionally not enabled because they require a paid Vercel analytics plan.

@@ -27,28 +27,71 @@ export default function CaseStudyNav({
   useEffect(() => {
     let updateFrame = 0;
     let setupFrame = 0;
-    let sectionElements: HTMLElement[] = [];
+    let resizeObserver: ResizeObserver | null = null;
+    let sectionMetrics: Array<{ id: string; top: number }> = [];
+    let articleTop = 0;
+    let articleHeight = 0;
+    let activationLine = Math.min(
+      window.innerHeight * 0.3,
+      260,
+    );
+
+    const article = document.querySelector<HTMLElement>(
+      ".case-content",
+    );
+
+    const measureLayout = () => {
+      activationLine = Math.min(
+        window.innerHeight * 0.3,
+        260,
+      );
+
+      sectionMetrics = sections
+        .map((section) => {
+          const element = document.getElementById(section.id);
+
+          if (!element) {
+            return null;
+          }
+
+          return {
+            id: section.id,
+            top:
+              window.scrollY +
+              element.getBoundingClientRect().top,
+          };
+        })
+        .filter(
+          (
+            section,
+          ): section is {
+            id: string;
+            top: number;
+          } => section !== null,
+        );
+
+      if (article) {
+        const articleRect = article.getBoundingClientRect();
+
+        articleTop = window.scrollY + articleRect.top;
+        articleHeight = article.offsetHeight;
+      }
+    };
 
     const updateNavigation = () => {
       cancelAnimationFrame(updateFrame);
 
       updateFrame = requestAnimationFrame(() => {
-        if (sectionElements.length === 0) {
+        if (sectionMetrics.length === 0) {
           return;
         }
 
-        const activationLine = Math.min(
-          window.innerHeight * 0.3,
-          260,
-        );
+        const activationPosition =
+          window.scrollY + activationLine;
+        let nextActive = sectionMetrics[0].id;
 
-        let nextActive = sectionElements[0].id;
-
-        for (const section of sectionElements) {
-          if (
-            section.getBoundingClientRect().top <=
-            activationLine
-          ) {
+        for (const section of sectionMetrics) {
+          if (section.top <= activationPosition) {
             nextActive = section.id;
           }
         }
@@ -59,7 +102,7 @@ export default function CaseStudyNav({
 
         if (reachedPageBottom) {
           nextActive =
-            sectionElements[sectionElements.length - 1].id;
+            sectionMetrics[sectionMetrics.length - 1].id;
         }
 
         setActive((currentActive) =>
@@ -68,29 +111,13 @@ export default function CaseStudyNav({
             : nextActive,
         );
 
-        const article =
-          document.querySelector<HTMLElement>(
-            ".case-content",
-          );
-
-        if (!article) {
-          return;
-        }
-
-        const articleRect =
-          article.getBoundingClientRect();
-        const articleTop =
-          window.scrollY + articleRect.top;
-
         const progressStart =
           articleTop - window.innerHeight * 0.24;
         const progressEnd =
           articleTop +
-          article.offsetHeight -
+          articleHeight -
           window.innerHeight * 0.72;
-
-        const progressRange =
-          progressEnd - progressStart;
+        const progressRange = progressEnd - progressStart;
 
         const nextProgress =
           progressRange > 0
@@ -111,55 +138,35 @@ export default function CaseStudyNav({
       });
     };
 
-    setupFrame = requestAnimationFrame(() => {
-      sectionElements = sections
-        .map((section) =>
-          document.getElementById(section.id),
-        )
-        .filter(
-          (element): element is HTMLElement =>
-            element !== null,
-        );
+    const handleLayoutChange = () => {
+      measureLayout();
+      updateNavigation();
+    };
 
+    setupFrame = requestAnimationFrame(() => {
+      measureLayout();
       updateNavigation();
 
-      window.addEventListener(
-        "scroll",
-        updateNavigation,
-        {
-          passive: true,
-        },
-      );
+      window.addEventListener("scroll", updateNavigation, {
+        passive: true,
+      });
+      window.addEventListener("resize", handleLayoutChange);
+      window.addEventListener("hashchange", updateNavigation);
 
-      window.addEventListener(
-        "resize",
-        updateNavigation,
-      );
-
-      window.addEventListener(
-        "hashchange",
-        updateNavigation,
-      );
+      if (article && "ResizeObserver" in window) {
+        resizeObserver = new ResizeObserver(handleLayoutChange);
+        resizeObserver.observe(article);
+      }
     });
 
     return () => {
       cancelAnimationFrame(setupFrame);
       cancelAnimationFrame(updateFrame);
+      resizeObserver?.disconnect();
 
-      window.removeEventListener(
-        "scroll",
-        updateNavigation,
-      );
-
-      window.removeEventListener(
-        "resize",
-        updateNavigation,
-      );
-
-      window.removeEventListener(
-        "hashchange",
-        updateNavigation,
-      );
+      window.removeEventListener("scroll", updateNavigation);
+      window.removeEventListener("resize", handleLayoutChange);
+      window.removeEventListener("hashchange", updateNavigation);
     };
   }, [sections]);
 

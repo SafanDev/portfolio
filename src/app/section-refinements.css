@@ -1,0 +1,147 @@
+/*
+ * Shared editorial eyebrow motif and focused case-study layout corrections.
+ * Imported after globals.css so these refinements do not replace or disturb
+ * the existing portfolio styling.
+ */
+
+.section-heading > p,
+.case-label,
+.case-section__label {
+  display: flex;
+  width: min(100%, 230px);
+  align-items: center;
+  gap: 13px;
+}
+
+.section-heading > p::after,
+.case-label::after,
+.case-section__label::after {
+  width: 64px;
+  height: 1px;
+  flex: 0 0 64px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+  content: "";
+}
+
+/* Equal metadata columns keep Role, Period and Status aligned as one system. */
+.case-meta {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.case-meta > div {
+  min-width: 0;
+  padding: 22px clamp(20px, 2.2vw, 30px);
+  align-content: center;
+  gap: 6px;
+}
+
+.case-meta strong {
+  max-width: 32ch;
+  overflow-wrap: anywhere;
+}
+
+/*
+ * The previous vertically centred sticky rail could visually rise into the
+ * metadata row. A normal sticky top keeps it below the header and lets it
+ * enter only after the case-study layout begins.
+ */
+@media (min-width: 901px) {
+  /*
+   * Centre the rail in the viewport without translating it outside its own
+   * layout area. Sticky positioning will not move it above the beginning of
+   * the case-study content, so the metadata row remains unobstructed.
+   */
+  .case-layout {
+    grid-template-columns: minmax(0, 1fr) 146px;
+    gap: clamp(28px, 3.6vw, 48px);
+  }
+
+  .case-nav {
+    top: max(116px, calc(50svh - 124px));
+    width: 142px;
+    max-width: 142px;
+    padding: 12px 0 12px 8px;
+    transform: none;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018),
+      transparent 78%
+    );
+    border-radius: 14px;
+  }
+
+  .case-nav__heading {
+    padding-left: 14px;
+  }
+
+  .case-nav__progress {
+    margin-left: 14px;
+  }
+
+  .case-nav__list {
+    padding-left: 14px;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 760px) {
+  .case-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .case-meta > div {
+    min-height: 74px;
+    padding: 15px 0;
+  }
+}
+
+/* Verification and reliability refinements. */
+@supports (content-visibility: auto) {
+  /* Case-study sections are hash-link targets. Keeping them fully laid out
+   * avoids inconsistent native anchor restoration across Chromium/WebKit. */
+  .case-section {
+    content-visibility: visible;
+    contain-intrinsic-size: none;
+  }
+}
+
+@media (max-width: 960px) {
+  /* Keep CV preview and download directly available on mobile. Labels remain
+   * accessible while the compact header presents clear action icons. */
+  .cv-actions {
+    display: flex;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .cv-preview-link,
+  .cv-actions .cv-download-button {
+    position: relative;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    min-height: 38px;
+    padding: 0;
+  }
+
+  .cv-preview-link > span,
+  .cv-actions .cv-download-button > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .cv-preview-link svg,
+  .cv-actions .cv-download-button svg {
+    width: 15px;
+    height: 15px;
+  }
+}

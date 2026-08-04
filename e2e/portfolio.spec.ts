@@ -17,6 +17,30 @@ test.describe("Portfolio core journeys", () => {
     await expect(page.locator("#contact")).toBeAttached();
   });
 
+
+  test("CV can be previewed or downloaded", async ({ page }) => {
+    await page.goto("/");
+
+    const viewCv = page.getByRole("link", {
+      name: "View Mohamed Safan's CV in a new tab",
+    }).first();
+    const downloadCv = page.getByRole("link", {
+      name: "Download Mohamed Safan's CV",
+    }).first();
+
+    await expect(viewCv).toHaveAttribute("href", "/downloads/Mohamed-Safan-CV.pdf");
+    await expect(viewCv).toHaveAttribute("target", "_blank");
+    await expect(downloadCv).toHaveAttribute("download", "");
+  });
+
+  test("custom 404 offers recovery routes", async ({ page }) => {
+    await page.goto("/this-page-does-not-exist");
+
+    await expect(page.getByRole("heading", { name: "404 page not found" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Back home" })).toHaveAttribute("href", "/");
+    await expect(page.getByRole("link", { name: "View projects" })).toHaveAttribute("href", "/#work");
+  });
+
   test("project cards route to their case-study pages", async ({ page }) => {
     await page.goto("/");
 
