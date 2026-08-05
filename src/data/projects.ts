@@ -118,7 +118,7 @@ export const projects: Project[] = [
     hook:
       "The storefront was only half the challenge. The real work was keeping every product, variant, image, order and stock update trustworthy behind it.",
     overview:
-      "Velvet Vogue is a deployed PHP and MySQL fashion store connecting product discovery, variant-aware shopping, orders, inventory and administration in one system.",
+      "Velvet Vogue is a PHP and MySQL fashion store connecting product discovery, variant-aware shopping, orders, inventory and administration in one system.",
     proof: [
       { value: "12", label: "relational database tables" },
       { value: "100", label: "validated size-colour variants per product" },
@@ -156,7 +156,7 @@ export const projects: Project[] = [
     },
     discovery: {
       headline: "Start with what shoppers and administrators actually need.",
-      methods: ["Questionnaire", "Requirements analysis", "Wireframing", "Competitor review"],
+      methods: ["Questionnaire", "Requirements analysis", "Wireframing"],
       paragraphs: [
         "Questionnaire feedback made discovery speed a priority: shoppers wanted to combine size, colour and price criteria without repeatedly opening separate pages.",
         "I translated the main customer and admin tasks into a relational structure before building the interface. The wireframe focused on page hierarchy and shopping flow first, leaving the visual style for a later pass.",
@@ -270,8 +270,8 @@ export const projects: Project[] = [
       workflow: [
         "Admin creates product",
         "Variants receive stock",
-        "Customer filters catalogue",
-        "Cart and checkout create order",
+        "Customer select product",
+        "Add to cart or checkout",
         "Customer tracks progress",
       ],
       media: [
@@ -365,7 +365,7 @@ export const projects: Project[] = [
       "A C# and SQL Server desktop system that centralises club records, calculations, dashboards and printable billing.",
     tools: ["C#", ".NET Framework", "Windows Forms", "SQL Server", "ADO.NET"],
     links: [{ label: "GitHub", href: "https://github.com/SafanDev/kick-blast-judo" }],
-    role: "Solo desktop application developer",
+    role: "Desktop application developer",
     team: "Independent project",
     hook:
       "The system already stored and calculated the right information. Feedback exposed the missing last mile: the administrator still needed something useful to print and hand over.",
@@ -567,7 +567,7 @@ export const projects: Project[] = [
       "A 50-screen React frontend where traveller and provider journeys evolved through research, sketches and usability feedback.",
     tools: ["React 19", "JavaScript", "Vite", "Tailwind CSS 4", "Framer Motion", "Pigeon Maps"],
     links: [{ label: "GitHub", href: "https://github.com/SafanDev/eco-traveler-cloud-platform" }],
-    role: "Solo product designer and frontend developer",
+    role: "Designer and frontend developer",
     team: "Independent project",
     hook:
       "ETCP started as a travel-discovery idea. Feedback exposed the missing piece: finding a place is not the same as being able to plan the trip.",
@@ -620,7 +620,7 @@ export const projects: Project[] = [
           src: media("etcp", "sketch"),
           alt: "Early hand sketch for ETCP mobile screens",
           title: "From journeys to screen structure",
-          caption: "The hand-drawn exploration stays full width so its notes, hierarchy and early screen relationships remain readable.",
+          caption: "The hand-drawn sketch helps to plan layout and flow.",
           orientation: "wide",
           presentation: "comparison-board",
         },
@@ -681,7 +681,7 @@ export const projects: Project[] = [
         afterAlt: "ETCP map screen after the route action was added",
         beforeLabel: "Before",
         afterLabel: "After",
-        caption: "Drag the divider to compare how the revised map makes the next route action visible without disrupting the existing discovery controls.",
+        caption: "Drag the divider to compare how the new current location action integrates with the existing interface.",
       },
       media: [],
     },
@@ -782,14 +782,14 @@ export const projects: Project[] = [
     cover: media("enomy-finance", "cover"),
     cardSummary:
       "An interactive Figma design that makes currency conversion, investment quotes and account activity easier to understand.",
-    tools: ["Figma", "Auto Layout", "Reusable components", "Interactive Figma flow"],
+    tools: ["Figma"],
     links: [
       {
         label: "View Figma design",
         href: "https://www.figma.com/design/IUAmQxfeTqMFcCiA4XFfwd/Enomy-Finance?t=tn6axTtPhgn2IXt5-0",
       },
     ],
-    role: "Solo UI/UX designer",
+    role: "UI/UX designer",
     team: "Independent project",
     hook: "In a finance product, clarity is the visual effect.",
     overview:
@@ -831,7 +831,7 @@ export const projects: Project[] = [
     },
     discovery: {
       headline: "Find the information people look for before choosing a layout.",
-      methods: ["Questionnaire", "Task analysis", "Content hierarchy", "Competitive review"],
+      methods: ["Questionnaire", "Task analysis", "Content hierarchy"],
       paragraphs: [
         "Questionnaire responses prioritised visible rates, clear fees, understandable outcomes and accessible history. Those needs shaped the main journeys.",
         "I did not create a separate wireframe set for this project. Instead, I explored hierarchy directly in Figma and used reusable components and Auto Layout to iterate without losing consistency.",
