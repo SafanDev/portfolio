@@ -17,3 +17,4 @@ blob-report/
 *.7z
 *.tar
 *.gz
+next-env.d.ts
