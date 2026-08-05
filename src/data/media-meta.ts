@@ -9,7 +9,7 @@ export const mediaMeta: Record<string, { width: number; height: number }> = {
   "/media/projects/etcp/cover.webp": { width: 1536, height: 1024 },
   "/media/projects/etcp/feedback-board.webp": { width: 578, height: 518 },
   "/media/projects/etcp/map-action-after.webp": { width: 684, height: 1476 },
-  "/media/projects/etcp/map-action-before.webp": { width: 684, height: 1476 },
+  "/media/projects/etcp/map-action-before-v2.webp": { width: 684, height: 1476 },
   "/media/projects/etcp/provider-dashboard.webp": { width: 310, height: 671 },
   "/media/projects/etcp/route-action-comparison.webp": { width: 2027, height: 2048 },
   "/media/projects/etcp/sketch.webp": { width: 1195, height: 896 },

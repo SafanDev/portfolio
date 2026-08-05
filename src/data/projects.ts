@@ -675,7 +675,7 @@ export const projects: Project[] = [
       feedback:
         "Feedback improved contrast, simplified mobile navigation and introduced the trip planner as a core flow.",
       comparison: {
-        before: media("etcp", "map-action-before"),
+        before: media("etcp", "map-action-before-v2"),
         after: media("etcp", "map-action-after"),
         beforeAlt: "ETCP map screen before the route action was added",
         afterAlt: "ETCP map screen after the route action was added",

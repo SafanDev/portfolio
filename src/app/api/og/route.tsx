@@ -3,6 +3,8 @@ import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
+
+
 function cleanText(value: string | null, fallback: string, maximumLength: number) {
   const cleaned = (value || fallback).replace(/\s+/g, " ").trim();
   return cleaned.slice(0, maximumLength) || fallback;
@@ -101,7 +103,7 @@ export async function GET(request: NextRequest) {
           }}
         >
           <span>Safan Portfolio</span>
-          <span style={{ color: "#7d8793" }}>Full-Stack Developer</span>
+          <span style={{ color: "#68717d" }}>Full-Stack Developer</span>
         </div>
       </div>
     ),

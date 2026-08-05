@@ -165,6 +165,31 @@ test.describe("Portfolio core journeys", () => {
     await expect(solution).toBeInViewport();
   });
 
+  test("case-study screenshots open in an accessible fullscreen viewer", async ({ page }) => {
+    await page.goto("/work/velvet-vogue");
+
+    const opener = page.getByRole("button", { name: /View .* fullscreen/i }).first();
+    await opener.click();
+
+    const viewer = page.locator("dialog.image-lightbox");
+    const activeImage = viewer.locator("img");
+
+    await expect(viewer).toBeVisible();
+    await expect(viewer.getByRole("button", { name: "Close fullscreen image viewer" })).toBeFocused();
+    await expect(viewer.getByText("Esc Close", { exact: true })).toBeVisible();
+    await expect(activeImage).toHaveAttribute("src", /wireframe\.webp$/);
+
+    await page.keyboard.press("ArrowRight");
+    await expect(activeImage).toHaveAttribute("src", /homepage-full\.webp$/);
+
+    await page.keyboard.press("End");
+    await expect(activeImage).toHaveAttribute("src", /interaction-404\.webp$/);
+
+    await page.keyboard.press("Escape");
+    await expect(viewer).not.toBeVisible();
+    await expect(opener).toBeFocused();
+  });
+
   test("key pages do not create horizontal document overflow", async ({ page }) => {
     for (const route of ["/", "/work/velvet-vogue", "/work/etcp"]) {
       await page.goto(route);

@@ -13,7 +13,7 @@ import EmailLink from "@/components/email-link";
 
 import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon, PlayIcon } from "@/components/icons";
 
-import { getNextProject, projectBySlug, projects, type Decision, type Project } from "@/data/projects";
+import { getNextProject, projectBySlug, projects, type Decision, type Project, type ProjectMedia } from "@/data/projects";
 import { mediaMeta } from "@/data/media-meta";
 import { siteConfig } from "@/data/site";
 import { getSiteUrl } from "@/lib/site-url";
@@ -124,7 +124,7 @@ function Outcome({ project, includeReflection = true }: { project: Project; incl
   );
 }
 
-function DetailedCaseStudy({ project }: { project: Project }) {
+function DetailedCaseStudy({ project, viewerItems }: { project: Project; viewerItems: ProjectMedia[] }) {
   return (
     <>
       <section id="overview" className="case-section case-overview" data-reveal>
@@ -154,7 +154,7 @@ function DetailedCaseStudy({ project }: { project: Project }) {
           {project.discovery.methods.map((method) => <span key={method}>{method}</span>)}
         </div>
         <p className="case-lead case-lead--small">{project.discovery.paragraphs[0]}</p>
-        <MediaGallery items={project.discovery.media} label={`${project.title} discovery visuals`} />
+        <MediaGallery items={project.discovery.media} label={`${project.title} discovery visuals`} viewerItems={viewerItems} />
       </section>
 
       <section id="decisions" className="case-section" data-reveal>
@@ -164,7 +164,7 @@ function DetailedCaseStudy({ project }: { project: Project }) {
         <DecisionCards decisions={project.process.decisions.slice(0, 3)} />
         <aside className="feedback-callout"><span>Changed after feedback</span><p>{project.process.feedback}</p></aside>
         {project.process.comparison && <ImageComparison {...project.process.comparison} />}
-        <MediaGallery items={project.process.media} label={`${project.title} process visuals`} />
+        <MediaGallery items={project.process.media} label={`${project.title} process visuals`} viewerItems={viewerItems} />
       </section>
 
       <section id="solution" className="case-section" data-reveal>
@@ -183,7 +183,7 @@ function DetailedCaseStudy({ project }: { project: Project }) {
           />
         )}
 
-        <MediaGallery items={project.solution.media} label={`${project.title} final solution visuals`} />
+        <MediaGallery items={project.solution.media} label={`${project.title} final solution visuals`} viewerItems={viewerItems} />
       </section>
 
       <Outcome project={project} />
@@ -191,7 +191,7 @@ function DetailedCaseStudy({ project }: { project: Project }) {
   );
 }
 
-function TechnicalBreakdown({ project }: { project: Project }) {
+function TechnicalBreakdown({ project, viewerItems }: { project: Project; viewerItems: ProjectMedia[] }) {
   return (
     <>
       <section id="overview" className="case-section case-overview" data-reveal>
@@ -211,14 +211,14 @@ function TechnicalBreakdown({ project }: { project: Project }) {
         <p className="case-lead case-lead--small">{project.problem.paragraphs[0]}</p>
         <DecisionCards decisions={project.process.decisions.slice(0, 2)} compact />
         <aside className="feedback-callout"><span>Improved after feedback</span><p>{project.process.feedback}</p></aside>
-        <MediaGallery items={project.process.media} label={`${project.title} improvement evidence`} />
+        <MediaGallery items={project.process.media} label={`${project.title} improvement evidence`} viewerItems={viewerItems} />
       </section>
 
       <section id="solution" className="case-section" data-reveal>
         <p className="case-section__label">System highlights</p>
         <h2>{project.solution.headline}</h2>
         <FeatureGrid project={project} />
-        <MediaGallery items={project.solution.media} label={`${project.title} system screens`} />
+        <MediaGallery items={project.solution.media} label={`${project.title} system screens`} viewerItems={viewerItems} />
       </section>
 
       <Outcome project={project} />
@@ -226,7 +226,7 @@ function TechnicalBreakdown({ project }: { project: Project }) {
   );
 }
 
-function VisualShowcase({ project }: { project: Project }) {
+function VisualShowcase({ project, viewerItems }: { project: Project; viewerItems: ProjectMedia[] }) {
   const showcaseMedia = [...project.discovery.media, ...project.process.media, ...project.solution.media]
     .filter((item, index, items) => items.findIndex((candidate) => candidate.src === item.src) === index);
 
@@ -279,7 +279,7 @@ function VisualShowcase({ project }: { project: Project }) {
                 <h3>{group.title}</h3>
                 <p>{group.text}</p>
               </div>
-              <MediaGallery items={group.items} label={`${project.title}: ${group.title}`} />
+              <MediaGallery items={group.items} label={`${project.title}: ${group.title}`} viewerItems={viewerItems} />
             </div>
           ))}
         </div>
@@ -289,6 +289,32 @@ function VisualShowcase({ project }: { project: Project }) {
     </>
   );
 }
+
+const getProjectViewerItems = (project: Project): ProjectMedia[] => {
+  const comparisonItems: ProjectMedia[] = project.process.comparison
+    ? [
+        {
+          src: project.process.comparison.before,
+          alt: project.process.comparison.beforeAlt,
+          caption: project.process.comparison.caption,
+        },
+        {
+          src: project.process.comparison.after,
+          alt: project.process.comparison.afterAlt,
+          caption: project.process.comparison.caption,
+        },
+      ]
+    : [];
+
+  return [
+    ...project.discovery.media,
+    ...project.process.media,
+    ...comparisonItems,
+    ...project.solution.media,
+  ].filter((item, index, items) =>
+    items.findIndex((candidate) => candidate.src === item.src) === index
+  );
+};
 
 const modeMap = {
   "kickblast-judo": "technical",
@@ -333,6 +359,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const mode = modeMap[project.slug as keyof typeof modeMap] || "detailed";
   const sections: CaseSectionLink[] = SectionConfig[mode];
   const Template = TemplateConfig[mode];
+  const viewerItems = getProjectViewerItems(project);
   const siteUrl = getSiteUrl();
   const pageStyle: CasePageStyle = { "--project-accent": project.accent };
 
@@ -405,7 +432,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <div className="case-layout section-shell">
           <article className="case-content">
-            <Template project={project} />
+            <Template project={project} viewerItems={viewerItems} />
             <Link href={`/work/${nextProject.slug}`} className="next-project" data-reveal>
               <span>Next project</span>
               <div><h2>{nextProject.title}</h2><ArrowRightIcon /></div>

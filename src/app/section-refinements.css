@@ -125,8 +125,7 @@
     padding: 0;
   }
 
-  .cv-preview-link > span,
-  .cv-actions .cv-download-button > span {
+  .cv-preview-link__label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -137,6 +136,10 @@
     clip-path: inset(50%);
     white-space: nowrap;
     border: 0;
+  }
+
+  .cv-download-button__tooltip {
+    display: none;
   }
 
   .cv-preview-link svg,

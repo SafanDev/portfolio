@@ -71,6 +71,30 @@ export function ArrowLeftIcon(props: IconProps) {
   );
 }
 
+export function ExpandIcon(props: IconProps) {
+  return (
+    <svg {...shared} {...props}>
+      <path d="M8 3H3v5" />
+      <path d="m3 3 6 6" />
+      <path d="M16 3h5v5" />
+      <path d="m21 3-6 6" />
+      <path d="M8 21H3v-5" />
+      <path d="m3 21 6-6" />
+      <path d="M16 21h5v-5" />
+      <path d="m21 21-6-6" />
+    </svg>
+  );
+}
+
+export function CloseIcon(props: IconProps) {
+  return (
+    <svg {...shared} {...props}>
+      <path d="m6 6 12 12" />
+      <path d="M18 6 6 18" />
+    </svg>
+  );
+}
+
 export function DownloadIcon(props: IconProps) {
   return (
     <svg {...shared} {...props}>

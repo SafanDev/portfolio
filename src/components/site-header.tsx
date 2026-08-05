@@ -300,7 +300,11 @@ export default function SiteHeader({
           </nav>
 
           <div className="header-actions">
-            <div className="cv-actions">
+            <div
+              className="cv-actions"
+              role="group"
+              aria-label="CV actions"
+            >
               <a
                 href={siteConfig.cv}
                 target="_blank"
@@ -308,18 +312,23 @@ export default function SiteHeader({
                 className="cv-preview-link"
                 aria-label="View Mohamed Safan's CV in a new tab"
               >
-                <span>View CV</span>
+                <span className="cv-preview-link__label">View CV</span>
                 <ExternalLinkIcon />
               </a>
 
               <a
                 href={siteConfig.cv}
                 download
-                className="button button--primary cv-download-button"
+                className="cv-download-button"
                 aria-label="Download Mohamed Safan's CV"
               >
-                <span>Download CV</span>
                 <DownloadIcon />
+                <span
+                  className="cv-download-button__tooltip"
+                  aria-hidden="true"
+                >
+                  Download CV
+                </span>
               </a>
             </div>
 
