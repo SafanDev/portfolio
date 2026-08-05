@@ -1,21 +1,31 @@
-# Compact CV Navbar Update
+# Safan — Developer Portfolio
 
-This update replaces the desktop CV controls with a compact split action:
+A portfolio showcasing my work as a Junior Full-Stack Developer.
 
-- `View CV` remains the clear labelled action.
-- Download becomes a small icon button with an accessible label and desktop tooltip.
-- The controls match the height and visual weight of the main navigation.
-- Existing mobile CV controls remain compact and accessible.
+## Live Site
 
-## Apply
+[View Portfolio](https://safan-portfolio-iota.vercel.app/)
 
-Extract this ZIP into the root of the current `safan-portfolio` project and allow Windows to replace the three existing files.
+## Featured Projects
 
-Then run:
+* Velvet Vogue — PHP, MySQL, JavaScript
+* KickBlast Judo — C# and .NET
+* ETCP — React
+* ENOMY Finance — Figma
 
-```powershell
-Remove-Item .\.next -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item .\playwright-report -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item .\test-results -Recurse -Force -ErrorAction SilentlyContinue
-npm.cmd run verify
+## Built With
+
+Next.js, React, TypeScript, CSS, Playwright and Vercel.
+
+## Run Locally
+
+```bash
+git clone https://github.com/SafanDev/portfolio.git
+cd portfolio
+npm install
+npm run dev
 ```
+
+## Contact
+
+[LinkedIn](https://www.linkedin.com/in/mohamed-safan-dev/) • [GitHub](https://github.com/SafanDev)
