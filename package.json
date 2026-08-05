@@ -15,7 +15,7 @@
     "verify": "npm run lint && npm run test:unit && npm run build && npm run test:e2e"
   },
   "dependencies": {
-    "next": "16.2.12",
+    "next": "16.3.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.7.0",
@@ -27,15 +27,18 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "16.3.0",
     "typescript": "^5"
   },
   "overrides": {
-  "postcss": "8.5.23",
-  "sharp": "0.35.3"
-},
+    "postcss": "8.5.23",
+    "sharp": "0.35.3"
+  },
   "allowScripts": {
     "sharp@0.35.3": true,
     "unrs-resolver@1.12.2": true
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

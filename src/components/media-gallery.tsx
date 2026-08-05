@@ -46,7 +46,7 @@ export default function MediaGallery({ items, label }: MediaGalleryProps) {
   ].filter(Boolean).join(" ");
 
   return (
-    <div className={galleryClasses} aria-label={label}>
+    <div className={galleryClasses} role="group" aria-label={label}>
       {items.map((item, index) => {
         const dimensions = mediaMeta[item.src] ?? { width: 1600, height: 1000 };
         const orientation = orientations[index];

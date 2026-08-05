@@ -17,7 +17,7 @@ A dark, responsive developer portfolio built with Next.js 16, React, TypeScript 
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 24.x
 - npm
 
 ## Install and run locally

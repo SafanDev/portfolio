@@ -8,7 +8,7 @@
   --text: #f4f6f8;
   --text-soft: #d6dae0;
   --muted: #949ca7;
-  --muted-2: #68717d;
+  --muted-2: #7d8793;
   --line: rgba(255, 255, 255, 0.09);
   --line-strong: rgba(255, 255, 255, 0.17);
   --white: #ffffff;
@@ -4282,6 +4282,11 @@ a {
   box-shadow:
     0 22px 58px rgba(0, 0, 0, 0.5),
     0 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.project-video__launch:focus-visible .project-video__play {
+  outline: 3px solid #ffffff;
+  outline-offset: 5px;
 }
 
 .project-video__seek-feedback {
