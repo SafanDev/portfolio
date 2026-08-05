@@ -12,3 +12,8 @@ playwright-report/
 test-results/
 blob-report/
 .playwright/
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
