@@ -821,9 +821,9 @@ a {
 
 .mobile-nav .nav-resume {
   justify-content: center;
-  color: #0b0912;
-  background: #11151b;
-  border-color: rgba(160, 139, 255, 0.72);
+  color: #11151b;
+  background: #c4cad3;
+  border-color: #c4cad3;
 }
 
 .mobile-nav .nav-resume:hover,
@@ -4055,8 +4055,10 @@ a {
   overflow: visible;
 }
 
-.hero__portrait {
-  bottom: -88px;
+@media (min-width: 961px) {
+  .hero__portrait {
+    bottom: -88px;
+  }
 }
 
 .hero__portrait-image {
